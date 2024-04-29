@@ -12,10 +12,10 @@ code:
 	docker run -ti --rm \
 		-v $(shell pwd)\:/usr/src/app \
 		-w /usr/src/app \
-		-p 8080\:5173 \
+		-p 3000\:3000 \
 		-u "node" \
 		-e NPM_CONFIG_PREFIX=/home/node/.npm-global \
-		node:slim \
+		node:20-slim \
 		bash
 
 types:
