@@ -12,11 +12,11 @@ export default function Palettier() {
     }),
     "Dimensions d'un lit": folder({
       "Sur la longueur de la palette": folder({
-        boxLengthCount: { value: 123, label: "Nbre" },
+        boxLengthCount: { value: 5, label: "Nbre" },
         boxLengthSize: { value: 123, label: "Dimension" },
       }),
       "Sur la largeur de la palette": folder({
-        boxWidthNbre: { value: 123, label: "Nbre" },
+        boxWidthCount: { value: 5, label: "Nbre" },
         boxWidthSize: { value: 123, label: "Dimension" },
       }),
       boxHeight: { value: 123, label: "Hauteur" },

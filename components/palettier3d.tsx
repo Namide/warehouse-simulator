@@ -1,7 +1,7 @@
 "use client";
 
 import { createRoot } from "react-dom/client";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { folder, useControls } from "leva";
 import React, { useRef, useState } from "react";
 import {
@@ -12,6 +12,9 @@ import {
   Object3DEventMap,
   Group,
   Vector3,
+  TextureLoader,
+  Color,
+  Euler,
 } from "three";
 import { OrbitControls } from "@react-three/drei";
 
@@ -36,13 +39,16 @@ function Pallet(props: { position: Vector3; size: number[] }) {
 
   const plankCount = Math.round(props.size[0] / 150);
 
-  const getPlankPos = (x: number): Vector3 => new Vector3(
-    x <= 0 ? plankSize[0] / 2 - props.size[0] / 2 :
-    x >= 1 ? props.size[0] / 2 - plankSize[0] / 2 :
-    (getPlankPos(1).x - getPlankPos(0).x) * x + getPlankPos(0).x,
-    0,
-    -plankSize[2] / 2
-  )
+  const getPlankPos = (x: number): Vector3 =>
+    new Vector3(
+      x <= 0
+        ? plankSize[0] / 2 - props.size[0] / 2
+        : x >= 1
+        ? props.size[0] / 2 - plankSize[0] / 2
+        : (getPlankPos(1).x - getPlankPos(0).x) * x + getPlankPos(0).x,
+      0,
+      -plankSize[2] / 2
+    );
 
   // Subscribe this component to the render-loop, rotate the mesh every frame
   // useFrame((state, delta) => {
@@ -73,9 +79,7 @@ function Pallet(props: { position: Vector3; size: number[] }) {
       ))}
       {new Array(plankCount).fill(true).map((_, index) => (
         <mesh
-          position={
-            getPlankPos(index / (plankCount - 1))
-          }
+          position={getPlankPos(index / (plankCount - 1))}
           scale={1}
           // onClick={(event) => setActive(!active)}
           // onPointerOver={(event) => setHover(true)}
@@ -91,47 +95,78 @@ function Pallet(props: { position: Vector3; size: number[] }) {
 }
 
 function Box(props: { position: Vector3; size: [number, number, number] }) {
-
-  // Return view, these are regular three.js elements expressed in JSX
+  const [colorMap] = useLoader(TextureLoader, ["/assets/box-texture.jpg"]);
+  const colorPower = Math.random() * 0.2
   return (
     <mesh
       position={props.position}
       scale={1}
-      // onClick={(event) => setActive(!active)}
-      // onPointerOver={(event) => setHover(true)}
-      // onPointerOut={(event) => setHover(false)}
+      rotation={new Euler(Math.random() * 0.05, Math.random() * 0.05, Math.random() * 0.05, )}
     >
       <boxGeometry args={props.size} />
-      <meshStandardMaterial color={"orange"} />
+      <meshStandardMaterial
+        map={colorMap}
+        emissive={
+          new Color(
+            colorPower,
+            colorPower,
+            colorPower
+          )
+        }
+      />
     </mesh>
   );
 }
-
 
 export default function Palettier3D({
   palletLength,
   palletWidth,
   palletHeight,
-  boxLengthNbre,
   boxLengthSize,
   boxLengthCount,
   boxWidthSize,
+  boxWidthCount,
   boxHeight,
   boxFloorsCount,
 }: {
   palletLength: number;
   palletWidth: number;
   palletHeight: number;
-  boxLengthNbre: number;
   boxLengthSize: number;
   boxLengthCount: number;
+  boxWidthCount: number;
   boxWidthSize: number;
   boxHeight: number;
   boxFloorsCount: number;
 }) {
   const palletSize = [palletLength, palletWidth, palletHeight];
 
-  // const boxSize = 
+  const boxes: ReturnType<typeof Box>[] = [];
+
+  for (let i = 0; i < boxLengthCount; i++) {
+    for (let j = 0; j < boxWidthCount; j++) {
+      for (let k = 0; k < boxFloorsCount; k++) {
+        boxes.push(
+          Box({
+            position: new Vector3(
+              palletLength / 2 +
+                i * boxLengthSize -
+                palletLength / 2 +
+                boxLengthSize / 2 -
+                (boxLengthSize * boxLengthCount) / 2,
+              palletWidth / 2 +
+                j * boxWidthSize -
+                palletWidth / 2 +
+                boxWidthSize / 2 -
+                (boxWidthSize * boxWidthCount) / 2,
+              k * boxHeight + boxHeight / 2
+            ),
+            size: [boxLengthSize, boxWidthSize, boxHeight],
+          })
+        );
+      }
+    }
+  }
 
   return (
     <div className="w-screen h-screen">
@@ -147,7 +182,7 @@ export default function Palettier3D({
         <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
         <Pallet position={new Vector3(0, 0, 0)} size={palletSize} />
 
-        <Box position={new Vector3(0, 0, 0)} size={[1, 1, 1]} />
+        {boxes}
 
         <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} />
       </Canvas>
