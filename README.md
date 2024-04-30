@@ -1,4 +1,4 @@
-# wharehouse-simulator
+# warehouse-simulator
 Exercices render for logistics students
 
 - [Demo](https://namide.github.io/warehouse-simulator/)
