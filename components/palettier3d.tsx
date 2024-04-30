@@ -164,7 +164,7 @@ export default function Palettier3D({
 
   return (
     <div className="w-screen h-screen">
-      <Canvas camera={{ position: [CAM_MIN_DISTANCE * 2, 0, CAM_MIN_DISTANCE], far: 30, near: 0.1 }}>
+      <Canvas camera={{ position: [CAM_MIN_DISTANCE * 2, CAM_MIN_DISTANCE, CAM_MIN_DISTANCE], far: 30, near: 0.1 }}>
 
         {/* https://github.com/pmndrs/drei?tab=readme-ov-file#environment */}
         <Environment
@@ -215,7 +215,7 @@ export default function Palettier3D({
           ))}
         </group>
 
-        <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} minDistance={CAM_MIN_DISTANCE} maxDistance={8} />
+        <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} minDistance={CAM_MIN_DISTANCE} maxDistance={8} enablePan={false} />
       </Canvas>
     </div>
   );
