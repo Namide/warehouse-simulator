@@ -12,14 +12,14 @@ export default function Palettier() {
     }),
     "Dimensions d'un lit": folder({
       "Sur la longueur de la palette": folder({
-        boxLengthCount: { value: 5, label: "Nbre" },
-        boxLengthSize: { value: 123, label: "Dimension" },
+        boxLengthCount: { value: 3, label: "Nbre" },
+        boxLengthSize: { value: 250, label: "Dimension" },
       }),
       "Sur la largeur de la palette": folder({
-        boxWidthCount: { value: 5, label: "Nbre" },
-        boxWidthSize: { value: 123, label: "Dimension" },
+        boxWidthCount: { value: 2, label: "Nbre" },
+        boxWidthSize: { value: 300, label: "Dimension" },
       }),
-      boxHeight: { value: 123, label: "Hauteur" },
+      boxHeight: { value: 200, label: "Hauteur" },
     }),
     boxFloorsCount: { value: 2, label: "Nbre de lits" },
   })
@@ -27,7 +27,6 @@ export default function Palettier() {
 
   return (
     <div className="w-screen h-screen">
-      <h2>Palette</h2>
       <Palettier3d {...sizes} />
     </div>
   );

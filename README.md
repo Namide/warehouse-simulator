@@ -41,3 +41,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 # Credits
 
 - https://fr.freepik.com/photos-gratuite/texture-brown-tissu_928724.htm#query=texture%20carton&position=0&from_view=keyword&track=ais&uuid=5adef7c7-4121-4cbd-a24c-ba7e74899b6f
+- https://polyhaven.com/a/empty_warehouse_01
