@@ -168,8 +168,8 @@ export default function Palettier3D({
 
         {/* https://github.com/pmndrs/drei?tab=readme-ov-file#environment */}
         <Environment
-          // files={`${process.env.PATH}/assets/warehouse.hdr`}
-          preset="warehouse"
+          files={`${process.env.PATH || ''}/assets/warehouse.hdr`}
+          // preset="warehouse"
           // background
           // backgroundRotation={new Euler(Math.PI / 2, 0, 0)}
           // environmentRotation={new Euler(Math.PI / 2, 0, 0)}
