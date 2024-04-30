@@ -19,7 +19,7 @@ npm run dev
 
 After that open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-# Credits
+## Credits
 
 - [Box texture by Freepik](https://fr.freepik.com/photos-gratuite/texture-brown-tissu_928724.htm#query=texture%20carton&position=0&from_view=keyword&track=ais&uuid=5adef7c7-4121-4cbd-a24c-ba7e74899b6f)
 - [Plank texture by Kalhh](https://pixabay.com/photos/wood-texture-grain-template-239860/)
