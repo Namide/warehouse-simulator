@@ -1,17 +1,17 @@
 "use client";
 
-const SCALE = 100;
+const SCALE = 1000;
 
-import { Canvas, useLoader } from "@react-three/fiber";
-import React, { useRef } from "react";
 import { Vector3, TextureLoader, Color, Euler } from "three";
-import { OrbitControls } from "@react-three/drei";
-import { Environment } from "@react-three/drei";
+import React, { useRef } from "react";
+import { Canvas, useLoader } from "@react-three/fiber";
+import { OrbitControls, Environment } from "@react-three/drei";
+
 // import { useRouter } from 'next/router'
 
 function Pallet(props: { position: Vector3; size: number[] }) {
-  const [colorMap] = useLoader(TextureLoader, [
-    process.env.PATH + "/assets/plank-texture.jpg",
+  const [plankMap] = useLoader(TextureLoader, [
+    (process.env.PATH || '') + "/assets/plank-texture.jpg",
   ]);
 
   // This reference will give us direct access to the mesh
@@ -70,7 +70,7 @@ function Pallet(props: { position: Vector3; size: number[] }) {
         >
           <boxGeometry args={cleatSize} />
           <meshStandardMaterial
-            map={colorMap}
+            map={plankMap}
             color="blanchedalmond"
             wireframe={false}
           />
@@ -87,7 +87,7 @@ function Pallet(props: { position: Vector3; size: number[] }) {
         >
           <boxGeometry args={plankSize} />
           <meshStandardMaterial
-            map={colorMap}
+            map={plankMap}
             color="blanchedalmond"
             wireframe={false}
           />
@@ -98,11 +98,12 @@ function Pallet(props: { position: Vector3; size: number[] }) {
 }
 
 function Box(props: { position: Vector3; size: [number, number, number] }) {
-  // console.log(router.pathname)
+
   const [colorMap] = useLoader(TextureLoader, [
-    process.env.PATH + "/assets/box-texture.jpg",
+    (process.env.PATH || '') + "/assets/box-texture.jpg",
   ]);
   const colorPower = Math.random() * 0.2 + 0.5;
+
   return (
     <mesh
       position={props.position}
@@ -159,9 +160,12 @@ export default function Palettier3D({
     }
   }
 
+  const CAM_MIN_DISTANCE = Math.max(palletLength, palletWidth) / SCALE
+
   return (
     <div className="w-screen h-screen">
-      <Canvas camera={{ position: [40, 0, 20], far: 300, near: 0.1 }}>
+      <Canvas camera={{ position: [CAM_MIN_DISTANCE * 2, 0, CAM_MIN_DISTANCE], far: 30, near: 0.1 }}>
+
         {/* https://github.com/pmndrs/drei?tab=readme-ov-file#environment */}
         <Environment
           // files={`${process.env.PATH}/assets/warehouse.hdr`}
@@ -173,7 +177,7 @@ export default function Palettier3D({
           backgroundIntensity={1}
           // ground
           // ground={{ radius: 100, height: 70, scale: 80 }}
-          ground={{ radius: 100, height: 30, scale: 80 }}
+          ground={{ radius: 10, height: 3, scale: 8 }}
         ></Environment>
         {/* <ambientLight intensity={Math.PI / 2} />
         <spotLight
@@ -211,7 +215,7 @@ export default function Palettier3D({
           ))}
         </group>
 
-        <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} />
+        <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} minDistance={CAM_MIN_DISTANCE} maxDistance={8} />
       </Canvas>
     </div>
   );

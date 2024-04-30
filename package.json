@@ -1,5 +1,6 @@
 {
   "name": "warehouse-simulator",
+  "description": "Tools for logistics students",
   "version": "0.1.0",
   "private": true,
   "scripts": {
