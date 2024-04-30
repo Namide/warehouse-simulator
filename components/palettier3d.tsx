@@ -1,5 +1,7 @@
 "use client";
 
+const SCALE = 100;
+
 import { Canvas, useLoader } from "@react-three/fiber";
 import React, { useRef, useState } from "react";
 import { Vector3, TextureLoader, Color, Euler } from "three";
@@ -12,8 +14,8 @@ function Pallet(props: { position: Vector3; size: number[] }) {
   // This reference will give us direct access to the mesh
   const meshRef = useRef<any>();
   // Set up state for the hovered and active state
-  const [hovered, setHover] = useState(false);
-  const [active, setActive] = useState(false);
+  // const [hovered, setHover] = useState(false);
+  // const [active, setActive] = useState(false);
 
   const cleatSize: [number, number, number] = [
     props.size[0],
@@ -37,7 +39,7 @@ function Pallet(props: { position: Vector3; size: number[] }) {
         ? props.size[0] / 2 - plankSize[0] / 2
         : (getPlankPos(1).x - getPlankPos(0).x) * x + getPlankPos(0).x,
       0,
-      -plankSize[2] / 2
+      props.size[2] - plankSize[2] / 2
     );
 
   // Subscribe this component to the render-loop, rotate the mesh every frame
@@ -54,10 +56,10 @@ function Pallet(props: { position: Vector3; size: number[] }) {
             new Vector3(
               0,
               index * props.size[1] - (Math.sign(index) * cleatSize[1]) / 2,
-              -(cleatSize[2] / 2 + plankSize[2])
+              props.size[2] - (cleatSize[2] / 2 + plankSize[2])
             )
           }
-          scale={active ? 1 : 1}
+          scale={1}
           // onClick={(event) => setActive(!active)}
           // onPointerOver={(event) => setHover(true)}
           // onPointerOut={(event) => setHover(false)}
@@ -152,17 +154,19 @@ export default function Palettier3D({
 
   return (
     <div className="w-screen h-screen">
-      <Canvas camera={{ position: [2000, 0, 1000], far: 4000, up: [0, 0, 1] }}>
+      <Canvas camera={{ position: [40, 0, 20], far: 300, near: 0.1 }}>
+        {/* https://github.com/pmndrs/drei?tab=readme-ov-file#environment */}
         <Environment
           // files='/assets/warehouse.hdr'
           preset="warehouse"
-          background
-          backgroundRotation={new Euler(Math.PI / 2, 0, 0)}
-          environmentRotation={new Euler(Math.PI / 2, 0, 0)}
-          environmentIntensity={0.5}
-          backgroundIntensity={0.5}
+          // background
+          // backgroundRotation={new Euler(Math.PI / 2, 0, 0)}
+          // environmentRotation={new Euler(Math.PI / 2, 0, 0)}
+          environmentIntensity={1}
+          backgroundIntensity={1}
           // ground
-          // ground={{ radius: 15, height: 60, scale: 5000 }}
+          // ground={{ radius: 100, height: 70, scale: 80 }}
+          ground={{ radius: 100, height: 30, scale: 80 }}
         ></Environment>
         {/* <ambientLight intensity={Math.PI / 2} />
         <spotLight
@@ -173,29 +177,32 @@ export default function Palettier3D({
           intensity={Math.PI}
         /> */}
         {/* <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} /> */}
-        <Pallet position={new Vector3(0, 0, 0)} size={palletSize} />
 
-        {boxes.map(([i, j, k], index) => (
-          <Box
-            position={
-              new Vector3(
-                palletLength / 2 +
-                  i * boxLengthSize -
+        <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE}>
+          <Pallet position={new Vector3(0, 0, 0)} size={palletSize} />
+
+          {boxes.map(([i, j, k], index) => (
+            <Box
+              position={
+                new Vector3(
                   palletLength / 2 +
-                  boxLengthSize / 2 -
-                  (boxLengthSize * boxLengthCount) / 2,
-                palletWidth / 2 +
-                  j * boxWidthSize -
+                    i * boxLengthSize -
+                    palletLength / 2 +
+                    boxLengthSize / 2 -
+                    (boxLengthSize * boxLengthCount) / 2,
                   palletWidth / 2 +
-                  boxWidthSize / 2 -
-                  (boxWidthSize * boxWidthCount) / 2,
-                k * boxHeight + boxHeight / 2
-              )
-            }
-            size={[boxLengthSize, boxWidthSize, boxHeight]}
-            key={`${i}-${j}-${k}`}
-          />
-        ))}
+                    j * boxWidthSize -
+                    palletWidth / 2 +
+                    boxWidthSize / 2 -
+                    (boxWidthSize * boxWidthCount) / 2,
+                  k * boxHeight + boxHeight / 2 + palletHeight
+                )
+              }
+              size={[boxLengthSize, boxWidthSize, boxHeight]}
+              key={`${i}-${j}-${k}`}
+            />
+          ))}
+        </group>
 
         <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} />
       </Canvas>
