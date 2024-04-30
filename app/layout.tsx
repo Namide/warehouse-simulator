@@ -17,7 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/svg+xml" href="/cube.svg"></link>
+        <link
+          rel="icon"
+          type="image/svg+xml"
+          href={`${process.env.PATH || ""}/cube.svg`}
+        ></link>
         <meta property="og:image" content="/assets/screenshot.jpg"></meta>
       </head>
       <body className={inter.className}>{children}</body>
