@@ -3,13 +3,16 @@
 const SCALE = 100;
 
 import { Canvas, useLoader } from "@react-three/fiber";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Vector3, TextureLoader, Color, Euler } from "three";
-import { OrbitControls, useEnvironment } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { Environment } from "@react-three/drei";
+// import { useRouter } from 'next/router'
 
 function Pallet(props: { position: Vector3; size: number[] }) {
-  const [colorMap] = useLoader(TextureLoader, ["/assets/plank-texture.jpg"]);
+  const [colorMap] = useLoader(TextureLoader, [
+    process.env.PATH + "/assets/plank-texture.jpg",
+  ]);
 
   // This reference will give us direct access to the mesh
   const meshRef = useRef<any>();
@@ -95,7 +98,10 @@ function Pallet(props: { position: Vector3; size: number[] }) {
 }
 
 function Box(props: { position: Vector3; size: [number, number, number] }) {
-  const [colorMap] = useLoader(TextureLoader, ["/assets/box-texture.jpg"]);
+  // console.log(router.pathname)
+  const [colorMap] = useLoader(TextureLoader, [
+    process.env.PATH + "/assets/box-texture.jpg",
+  ]);
   const colorPower = Math.random() * 0.2 + 0.5;
   return (
     <mesh
@@ -140,6 +146,7 @@ export default function Palettier3D({
   boxHeight: number;
   boxFloorsCount: number;
 }) {
+  // const router = useRouter()
   const palletSize = [palletLength, palletWidth, palletHeight];
 
   const boxes: number[][] = [];
@@ -157,7 +164,7 @@ export default function Palettier3D({
       <Canvas camera={{ position: [40, 0, 20], far: 300, near: 0.1 }}>
         {/* https://github.com/pmndrs/drei?tab=readme-ov-file#environment */}
         <Environment
-          // files='/assets/warehouse.hdr'
+          // files={`${process.env.PATH}/assets/warehouse.hdr`}
           preset="warehouse"
           // background
           // backgroundRotation={new Euler(Math.PI / 2, 0, 0)}
@@ -181,7 +188,7 @@ export default function Palettier3D({
         <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE}>
           <Pallet position={new Vector3(0, 0, 0)} size={palletSize} />
 
-          {boxes.map(([i, j, k], index) => (
+          {boxes.map(([i, j, k]) => (
             <Box
               position={
                 new Vector3(
