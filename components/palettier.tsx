@@ -22,8 +22,8 @@ export default function Palettier() {
       boxHeight: { value: 200, label: "Hauteur", min: 1, max: 1000 },
     }),
     boxFloorsCount: { value: 2, label: "Nbre de lits", min: 1, max: 100 },
+    hq: { value: true, label: "Haute qualité" },
   })
-
 
   return (
     <div className="w-screen h-screen">
