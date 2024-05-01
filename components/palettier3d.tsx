@@ -21,6 +21,7 @@ import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
 import { createRng } from "@/helpers/rng";
 import { BlendFunction } from "postprocessing";
+import getPath from "@/helpers/path";
 
 // https://docs.pmnd.rs/react-three-fiber/advanced/scaling-performance#instancing
 function Instances({
@@ -52,7 +53,7 @@ function Instances({
 
 function Pallet(props: { position: Vector3; size: number[]; hq: boolean }) {
   const [plankMap] = useLoader(TextureLoader, [
-    (process.env.PATH || "") + "/assets/plank-texture.jpg",
+    getPath("/assets/plank-texture.jpg")
   ]);
 
   const cleatSize: [number, number, number] = [
@@ -131,7 +132,8 @@ function Box(props: {
   hq: boolean;
 }) {
   const [colorMap] = useLoader(TextureLoader, [
-    (process.env.PATH || "") + "/assets/box-texture.jpg",
+
+    getPath("/assets/box-texture.jpg")
   ]);
   const colorPower = props.seeds[3] * 0.2 + 0.5;
 
@@ -255,7 +257,7 @@ export default function Palettier3D({
       >
         {/* https://github.com/pmndrs/drei?tab=readme-ov-file#environment */}
         <Environment
-          files={`${process.env.PATH || ""}/assets/warehouse.hdr`}
+          files={getPath('/assets/warehouse.hdr')}
           environmentIntensity={hq ? 0.4 : 0.8}
           backgroundIntensity={hq ? 1 : 0.8}
           ground={{ radius: 10, height: 3, scale: 8 }}

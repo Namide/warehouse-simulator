@@ -1,14 +1,8 @@
 /** @type {import('next').NextConfig} */
 
-// development production
-const PATH = process.env.NODE_ENV === 'production' ? '/warehouse-simulator' : ''
-
 const nextConfig = {
   output: 'export',
-  basePath: PATH,
-  env: {
-    PATH: PATH,
-  },
+  basePath: process.env.NODE_ENV === 'development' ? '' : '/warehouse-simulator',
 };
 
 export default nextConfig;

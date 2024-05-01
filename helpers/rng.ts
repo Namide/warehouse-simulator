@@ -1,5 +1,6 @@
 
 export function createRng(seed: number) {
+  console.log(process.env.NODE_ENV)
   let a = seed;
   return () => {
     a |= 0;
