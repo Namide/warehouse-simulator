@@ -24,11 +24,11 @@ export default function RootLayout({
           href={getPath('/cube.svg')}
         ></link>
 
-        <meta property="og:image" content={`${process.env.CUSTOM_PATH || ""}/assets/screenshot.jpg`}></meta>
+        <meta property="og:image" content={getPath('/assets/screenshot.jpg')}></meta>
 
-        <link rel="preload" href={`${process.env.CUSTOM_PATH || ""}/assets/warehouse.hdr`} as="image" />
-        <link rel="preload" href={`${process.env.CUSTOM_PATH || ""}/assets/plank-texture.jpg`} as="image" />
-        <link rel="preload" href={`${process.env.CUSTOM_PATH || ""}/assets/box-texture.jpg`} as="image" />
+        <link rel="preload" href={getPath('/assets/warehouse.hdr')} as="image" />
+        <link rel="preload" href={getPath('/assets/plank-texture.jpg')} as="image" />
+        <link rel="preload" href={getPath('/assets/box-texture.jpg')} as="image" />
 
       </head>
       <body className={inter.className}>{children}</body>
