@@ -2,8 +2,15 @@
 
 const SCALE = 1000;
 
-import { Vector3, TextureLoader, Color, Euler, MultiplyBlending } from "three";
-import React from "react";
+import {
+  Vector3,
+  TextureLoader,
+  Color,
+  Euler,
+  MultiplyBlending,
+  Object3D,
+} from "three";
+import React, { useEffect, useRef } from "react";
 import {
   Bloom,
   EffectComposer,
@@ -13,8 +20,35 @@ import {
 import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
 import { createRng } from "@/helpers/rng";
-import { BlendFunction } from 'postprocessing'
+import { BlendFunction } from "postprocessing";
 
+// https://docs.pmnd.rs/react-three-fiber/advanced/scaling-performance#instancing
+function Instances({
+  count = 100000,
+  temp = new Object3D(),
+  children,
+}: {
+  count: number;
+  temp: Object3D;
+  children: React.ReactNode;
+}) {
+  const instancedMeshRef = useRef<any>();
+  useEffect(() => {
+    // Set positions
+    for (let i = 0; i < count; i++) {
+      temp.position.set(Math.random(), Math.random(), Math.random());
+      temp.updateMatrix();
+      instancedMeshRef.current.setMatrixAt(i, temp.matrix);
+    }
+    // Update the instance
+    instancedMeshRef.current.instanceMatrix.needsUpdate = true;
+  }, []);
+  return (
+    <instancedMesh ref={instancedMeshRef} args={[undefined, undefined, count]}>
+      {children}
+    </instancedMesh>
+  );
+}
 
 function Pallet(props: { position: Vector3; size: number[]; hq: boolean }) {
   const [plankMap] = useLoader(TextureLoader, [
@@ -139,8 +173,7 @@ function Render3D({
   };
 }) {
   return (
-    <Canvas camera={camera} shadows={hq && "soft"}
-    >
+    <Canvas camera={camera} shadows={hq && "soft"}>
       {children}
 
       <EffectComposer enabled={hq}>
@@ -150,7 +183,12 @@ function Render3D({
             bokehScale={2}
             height={480}
           /> */}
-        <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} intensity={0.1} />
+        <Bloom
+          luminanceThreshold={0}
+          luminanceSmoothing={0.9}
+          height={300}
+          intensity={0.1}
+        />
         {/*opacity={0.02} /> */}
         <Vignette eskil={false} offset={0.1} darkness={0.8} />
         <ToneMapping
@@ -234,11 +272,19 @@ export default function Palettier3D({
         <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE}>
           {hq && (
             <>
-              <directionalLight intensity={5} castShadow position={[-1000, -3000, 5000]} />
+              <directionalLight
+                intensity={5}
+                castShadow
+                position={[-1000, -3000, 5000]}
+              />
               {/* <ambientLight intensity={0.2} /> */}
               <mesh receiveShadow scale={new Vector3(100, 100, 100)}>
                 <circleGeometry args={[40]} />
-                <meshStandardMaterial envMapIntensity={0} blending={MultiplyBlending} color={'#C5C5C5'}/>
+                <meshStandardMaterial
+                  envMapIntensity={0}
+                  blending={MultiplyBlending}
+                  color={"#C5C5C5"}
+                />
               </mesh>
             </>
           )}
