@@ -9,6 +9,7 @@ import {
   Euler,
   MultiplyBlending,
   Object3D,
+  FrontSide,
 } from "three";
 import React, { useEffect, useRef } from "react";
 import {
@@ -102,6 +103,7 @@ function Pallet(props: { position: Vector3; size: number[]; hq: boolean }) {
             map={plankMap}
             color="blanchedalmond"
             wireframe={false}
+            shadowSide={FrontSide}
           />
         </mesh>
       ))}
@@ -156,6 +158,7 @@ function Box(props: {
         map={colorMap}
         color={new Color(colorPower, colorPower, colorPower)}
         wireframe={false}
+        shadowSide={FrontSide}
       />
     </mesh>
   );
@@ -177,6 +180,26 @@ function Render3D({
   return (
     <Canvas camera={camera} shadows={hq && "soft"}>
       {children}
+
+      {hq && (
+        <>
+          <directionalLight
+            intensity={5}
+            castShadow
+            position={[-1, 5, -3]}
+            shadow-bias={-0.0001}
+          />
+          {/* <ambientLight intensity={0.2} /> */}
+          <mesh receiveShadow rotation-x={-Math.PI / 2}>
+            <circleGeometry args={[4]} />
+            <meshStandardMaterial
+              envMapIntensity={0}
+              blending={MultiplyBlending}
+              color={"#C5C5C5"}
+            />
+          </mesh>
+        </>
+      )}
 
       <EffectComposer enabled={hq}>
         {/* <DepthOfField
@@ -272,24 +295,6 @@ export default function Palettier3D({
         {/* <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} /> */}
 
         <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE}>
-          {hq && (
-            <>
-              <directionalLight
-                intensity={5}
-                castShadow
-                position={[-1000, -3000, 5000]}
-              />
-              {/* <ambientLight intensity={0.2} /> */}
-              <mesh receiveShadow scale={new Vector3(100, 100, 100)}>
-                <circleGeometry args={[40]} />
-                <meshStandardMaterial
-                  envMapIntensity={0}
-                  blending={MultiplyBlending}
-                  color={"#C5C5C5"}
-                />
-              </mesh>
-            </>
-          )}
 
           <Pallet position={new Vector3(0, 0, 0)} size={palletSize} hq={hq} />
 
