@@ -6,6 +6,7 @@ import { Vector3, TextureLoader, Color, Euler } from "three";
 import React, { useRef } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
+import { createRng } from "@/helpers/rng";
 
 // import { useRouter } from 'next/router'
 
@@ -97,12 +98,12 @@ function Pallet(props: { position: Vector3; size: number[] }) {
   );
 }
 
-function Box(props: { position: Vector3; size: [number, number, number] }) {
+function Box(props: { position: Vector3; size: [number, number, number], seeds: [number, number, number, number] }) {
 
   const [colorMap] = useLoader(TextureLoader, [
     (process.env.PATH || '') + "/assets/box-texture.jpg",
   ]);
-  const colorPower = Math.random() * 0.2 + 0.5;
+  const colorPower = props.seeds[3] * 0.2 + 0.5;
 
   return (
     <mesh
@@ -110,9 +111,9 @@ function Box(props: { position: Vector3; size: [number, number, number] }) {
       scale={1}
       rotation={
         new Euler(
-          Math.random() * 0.05,
-          Math.random() * 0.05,
-          Math.random() * 0.05
+          props.seeds[0] * 0.05,
+          props.seeds[1] * 0.05,
+          props.seeds[2] * 0.05
         )
       }
     >
@@ -150,12 +151,12 @@ export default function Palettier3D({
   // const router = useRouter()
   const palletSize = [palletLength, palletWidth, palletHeight];
 
-  const boxes: number[][] = [];
-
+  const rng = createRng(7)
+  const boxes: [number, number, number, [number, number, number, number]][] = [];
   for (let i = 0; i < boxLengthCount; i++) {
     for (let j = 0; j < boxWidthCount; j++) {
       for (let k = 0; k < boxFloorsCount; k++) {
-        boxes.push([i, j, k]);
+        boxes.push([i, j, k, [rng(), rng(), rng(), rng()]]);
       }
     }
   }
@@ -192,7 +193,7 @@ export default function Palettier3D({
         <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE}>
           <Pallet position={new Vector3(0, 0, 0)} size={palletSize} />
 
-          {boxes.map(([i, j, k]) => (
+          {boxes.map(([i, j, k, seeds]) => (
             <Box
               position={
                 new Vector3(
@@ -209,6 +210,7 @@ export default function Palettier3D({
                   k * boxHeight + boxHeight / 2 + palletHeight
                 )
               }
+              seeds={seeds}
               size={[boxLengthSize, boxWidthSize, boxHeight]}
               key={`${i}-${j}-${k}`}
             />
