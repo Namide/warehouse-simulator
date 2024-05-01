@@ -3,23 +3,15 @@
 const SCALE = 1000;
 
 import { Vector3, TextureLoader, Color, Euler } from "three";
-import React, { useRef } from "react";
+import React from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
 import { createRng } from "@/helpers/rng";
-
-// import { useRouter } from 'next/router'
 
 function Pallet(props: { position: Vector3; size: number[] }) {
   const [plankMap] = useLoader(TextureLoader, [
     (process.env.PATH || '') + "/assets/plank-texture.jpg",
   ]);
-
-  // This reference will give us direct access to the mesh
-  const meshRef = useRef<any>();
-  // Set up state for the hovered and active state
-  // const [hovered, setHover] = useState(false);
-  // const [active, setActive] = useState(false);
 
   const cleatSize: [number, number, number] = [
     props.size[0],
@@ -46,14 +38,8 @@ function Pallet(props: { position: Vector3; size: number[] }) {
       props.size[2] - plankSize[2] / 2
     );
 
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  // useFrame((state, delta) => {
-  //   if (meshRef.current) meshRef.current.rotation.x += delta;
-  // });
-
-  // Return view, these are regular three.js elements expressed in JSX
   return (
-    <group ref={meshRef} position={props.position}>
+    <group position={props.position}>
       {[-0.5, 0, 0.5].map((index) => (
         <mesh
           position={
@@ -64,9 +50,6 @@ function Pallet(props: { position: Vector3; size: number[] }) {
             )
           }
           scale={1}
-          // onClick={(event) => setActive(!active)}
-          // onPointerOver={(event) => setHover(true)}
-          // onPointerOut={(event) => setHover(false)}
           key={index}
         >
           <boxGeometry args={cleatSize} />
@@ -81,9 +64,6 @@ function Pallet(props: { position: Vector3; size: number[] }) {
         <mesh
           position={getPlankPos(index / (plankCount - 1))}
           scale={1}
-          // onClick={(event) => setActive(!active)}
-          // onPointerOver={(event) => setHover(true)}
-          // onPointerOut={(event) => setHover(false)}
           key={"b" + index}
         >
           <boxGeometry args={plankSize} />
@@ -148,7 +128,6 @@ export default function Palettier3D({
   boxHeight: number;
   boxFloorsCount: number;
 }) {
-  // const router = useRouter()
   const palletSize = [palletLength, palletWidth, palletHeight];
 
   const rng = createRng(7)
@@ -170,14 +149,8 @@ export default function Palettier3D({
         {/* https://github.com/pmndrs/drei?tab=readme-ov-file#environment */}
         <Environment
           files={`${process.env.PATH || ''}/assets/warehouse.hdr`}
-          // preset="warehouse"
-          // background
-          // backgroundRotation={new Euler(Math.PI / 2, 0, 0)}
-          // environmentRotation={new Euler(Math.PI / 2, 0, 0)}
           environmentIntensity={1}
           backgroundIntensity={1}
-          // ground
-          // ground={{ radius: 100, height: 70, scale: 80 }}
           ground={{ radius: 10, height: 3, scale: 8 }}
         ></Environment>
         {/* <ambientLight intensity={Math.PI / 2} />
