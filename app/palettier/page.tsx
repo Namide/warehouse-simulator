@@ -1,5 +1,5 @@
-import Palettier from '@/components/palettier'
+import PalletRackInputs from "@/components/palletRack/palletRackInputs";
 
 export default function Page() {
-  return <Palettier />
+  return <PalletRackInputs />;
 }

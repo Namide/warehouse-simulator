@@ -1,7 +1,7 @@
 "use client";
 
 import { LevaInputs, folder, useControls } from "leva";
-import Palettier3d from "@/components/palettier3d";
+import Scene3D from "@/components/palletRack/scene3d";
 
 function getInput(min: number, value: number, max: number, label: string) {
   return {
@@ -13,8 +13,8 @@ function getInput(min: number, value: number, max: number, label: string) {
   };
 }
 
-export default function Palettier() {
-  const sizes = useControls({
+export default function PalletRackInputs() {
+  const options = useControls({
     Palette: folder({
       palletLength: getInput(1, 1000, 2000, "L (mm)"),
       palletWidth: getInput(1, 500, 2000, "l (mm)"),
@@ -66,7 +66,7 @@ export default function Palettier() {
 
   return (
     <div className="w-screen h-screen">
-      <Palettier3d {...sizes} />
+      <Scene3D options={options} />
     </div>
   );
 }
