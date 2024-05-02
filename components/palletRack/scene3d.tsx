@@ -17,6 +17,7 @@ import { BlendFunction } from "postprocessing";
 import getPath from "@/helpers/path";
 import Pallet from "./pallet";
 import Box from "./box";
+import PalletRack from "./palletRack";
 
 export type Options = {
   palletLength: number;
@@ -186,6 +187,8 @@ export default function Scene3D({ options }: { options: Options }) {
         {/* <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} /> */}
 
         <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE}>
+          <PalletRack options={options} />
+
           <Pallet
             position={new Vector3(0, 0, 0)}
             size={palletSize}

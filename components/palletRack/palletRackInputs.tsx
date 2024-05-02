@@ -52,11 +52,9 @@ export default function PalletRackInputs() {
       floorCount: getInput(0, 0, 20, "Nbre"),
     }),
     "Échelles intermédiaires": folder({
-      Lisse: folder({
-        palletRackLadderLength: getInput(1, 3000, 15000, "h (mm)"),
-        palletRackLadderHeight: getInput(1, 50, 300, "l (mm)"),
-        palletRackLadderWidth: getInput(1, 500, 5000, "Prof (mm)"),
-      }),
+      palletRackLadderLength: getInput(1, 3000, 15000, "h (mm)"),
+      palletRackLadderHeight: getInput(1, 50, 300, "l (mm)"),
+      palletRackLadderWidth: getInput(1, 500, 5000, "Prof (mm)"),
       palletRackLadderCount: getInput(0, 0, 20, "Nbre"),
     }),
     "Échelles extrémités": folder({
