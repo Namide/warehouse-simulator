@@ -36,7 +36,7 @@ export default function PalletRackInputs() {
     Lisses: folder({
       palletRackBeamLength: getInput(1, 1000, 4000, "L (mm)"),
       palletRackBeamHeight: getInput(1, 100, 500, "h (mm)"), // plus petit
-      palletRackBeamWidth: getInput(1, 100, 500, "Ép (mm)"),
+      palletRackBeamWidth: getInput(1, 50, 500, "Ép (mm)"),
       palletRackByCell: getInput(1, 1, 4, "Palettes/alvéole"),
       palletRackRotate: {
         options: ["longitudinale", "transversale"] as (
@@ -46,7 +46,7 @@ export default function PalletRackInputs() {
         type: LevaInputs.SELECT,
       },
     }),
-    Niveau: folder({
+    "Niveaux suppérieurs": folder({
       groundCellHeight: getInput(1, 1000, 3000, "h du RdC"),
       floorCellHeight: getInput(1, 1000, 3000, "h étage"),
       floorCount: getInput(0, 0, 20, "Nbre"),

@@ -7,6 +7,7 @@ import React, { useEffect, useRef } from "react";
 import {
   Bloom,
   EffectComposer,
+  GodRays,
   ToneMapping,
   Vignette,
 } from "@react-three/postprocessing";
