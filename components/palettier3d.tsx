@@ -54,7 +54,7 @@ function Instances({
 
 function Pallet(props: { position: Vector3; size: number[]; hq: boolean }) {
   const [plankMap] = useLoader(TextureLoader, [
-    getPath("/assets/plank-texture.jpg")
+    getPath("/assets/plank-texture.jpg"),
   ]);
 
   const cleatSize: [number, number, number] = [
@@ -134,8 +134,7 @@ function Box(props: {
   hq: boolean;
 }) {
   const [colorMap] = useLoader(TextureLoader, [
-
-    getPath("/assets/box-texture.jpg")
+    getPath("/assets/box-texture.jpg"),
   ]);
   const colorPower = props.seeds[3] * 0.2 + 0.5;
 
@@ -280,7 +279,7 @@ export default function Palettier3D({
       >
         {/* https://github.com/pmndrs/drei?tab=readme-ov-file#environment */}
         <Environment
-          files={getPath('/assets/warehouse.hdr')}
+          files={getPath("/assets/warehouse.hdr")}
           environmentIntensity={hq ? 0.4 : 0.8}
           backgroundIntensity={hq ? 1 : 0.8}
           ground={{ radius: 10, height: 3, scale: 8 }}
@@ -295,7 +294,6 @@ export default function Palettier3D({
         {/* <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} /> */}
 
         <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE}>
-
           <Pallet position={new Vector3(0, 0, 0)} size={palletSize} hq={hq} />
 
           {boxes.map(([i, j, k, seeds]) => (

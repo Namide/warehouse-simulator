@@ -1,29 +1,68 @@
 "use client";
 
-import { folder, useControls } from 'leva'
-import Palettier3d from "@/components/palettier3d"
+import { LevaInputs, folder, useControls } from "leva";
+import Palettier3d from "@/components/palettier3d";
+
+function getInput(min: number, value: number, max: number, label: string) {
+  return {
+    value,
+    label,
+    min,
+    max,
+    step: 1,
+  };
+}
 
 export default function Palettier() {
   const sizes = useControls({
     Palette: folder({
-      palletLength: { value: 1200, label: "Longueur mm", min: 1, max: 5000 },
-      palletWidth: { value: 800, label: "Largeur mm", min: 1, max: 5000 },
-      palletHeight: { value: 100, label: "Hauteur mm", min: 1, max: 300 },
+      palletLength: getInput(1, 1000, 2000, "L (mm)"),
+      palletWidth: getInput(1, 500, 2000, "l (mm)"),
+      palletHeight: getInput(1, 100, 300, "h (mm)"),
     }),
-    "Dimensions d'un lit": folder({
-      "Sur la longueur de la palette": folder({
-        boxLengthCount: { value: 3, label: "Nbre", min: 1, max: 30 },
-        boxLengthSize: { value: 250, label: "Dimension", min: 1, max: 1000 },
+    Charge: folder({
+      "Sur la L de la palette": folder({
+        boxLengthCount: getInput(1, 3, 300, "Nbre"),
+        boxLengthSize: getInput(1, 250, 2000, "Dimension"),
       }),
-      "Sur la largeur de la palette": folder({
-        boxWidthCount: { value: 2, label: "Nbre", min: 1, max: 30 },
-        boxWidthSize: { value: 300, label: "Dimension", min: 1, max: 1000 },
+      "Sur la l de la palette": folder({
+        boxWidthCount: getInput(1, 2, 300, "Nbre"),
+        boxWidthSize: getInput(1, 250, 2000, "Dimension"),
       }),
-      boxHeight: { value: 200, label: "Hauteur", min: 1, max: 1000 },
+      boxHeight: getInput(1, 200, 1500, "h mm"),
+      boxFloorsCount: getInput(1, 1, 20, "Nbre de lits"),
     }),
-    boxFloorsCount: { value: 2, label: "Nbre de lits", min: 1, max: 100 },
-    hq: { value: true, label: "Haute qualité" },
-  })
+    // Palettier: folder({
+    Lisses: folder({
+      palletRackBeamLength: getInput(1, 1000, 4000, "L (mm)"),
+      palletRackBeamHeight: getInput(1, 100, 500, "h (mm)"), // plus petit
+      palletRackBeamWidth: getInput(1, 100, 500, "Ép (mm)"),
+      palletRackByCell: getInput(1, 1, 4, "Palettes/alvéole"),
+      palletRackRotate: {
+        options: ["longitudinale", "transversale"],
+        type: LevaInputs.SELECT,
+      },
+    }),
+    Niveau: folder({
+      groundCellHeight: getInput(1, 1000, 3000, "h du RdC"),
+      floorCellHeight: getInput(1, 1000, 3000, "h étage"),
+      floorCount: getInput(0, 0, 20, "Nbre"),
+    }),
+    "Échelles intermédiaires": folder({
+      Lisse: folder({
+        palletRackLadderLength: getInput(1, 3000, 15000, "h (mm)"),
+        palletRackLadderHeight: getInput(1, 50, 300, "l (mm)"),
+        palletRackLadderWidth: getInput(1, 500, 5000, "Prof (mm)"),
+      }),
+      palletRackLadderCount: getInput(0, 0, 20, "Nbre"),
+    }),
+    "Échelles extrémités": folder({
+      palletRackLadderExtLength: getInput(1, 500, 5000, "h sup (mm)"),
+    }),
+    // }),
+
+    hq: { value: true, label: "hq" },
+  });
 
   return (
     <div className="w-screen h-screen">
