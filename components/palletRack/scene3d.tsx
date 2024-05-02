@@ -18,6 +18,32 @@ import getPath from "@/helpers/path";
 import Pallet from "./pallet";
 import Box from "./box";
 
+export type Options = {
+  palletLength: number;
+  palletWidth: number;
+  palletHeight: number;
+  boxLengthCount: number;
+  boxLengthSize: number;
+  boxWidthCount: number;
+  boxWidthSize: number;
+  boxHeight: number;
+  boxFloorsCount: number;
+  palletRackBeamLength: number;
+  palletRackBeamHeight: number;
+  palletRackBeamWidth: number;
+  palletRackByCell: number;
+  palletRackRotate: "longitudinale" | "transversale";
+  groundCellHeight: number;
+  floorCellHeight: number;
+  floorCount: number;
+  palletRackLadderLength: number;
+  palletRackLadderHeight: number;
+  palletRackLadderWidth: number;
+  palletRackLadderCount: number;
+  palletRackLadderExtLength: number;
+  hq: boolean;
+};
+
 // https://docs.pmnd.rs/react-three-fiber/advanced/scaling-performance#instancing
 function Instances({
   count = 100000,
@@ -112,22 +138,7 @@ function Render3D({
   );
 }
 
-export default function Scene3D({
-  options,
-}: {
-  options: {
-    palletLength: number;
-    palletWidth: number;
-    palletHeight: number;
-    boxLengthSize: number;
-    boxLengthCount: number;
-    boxWidthCount: number;
-    boxWidthSize: number;
-    boxHeight: number;
-    boxFloorsCount: number;
-    hq: boolean;
-  };
-}) {
+export default function Scene3D({ options }: { options: Options }) {
   const palletSize = [
     options.palletLength,
     options.palletWidth,

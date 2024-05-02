@@ -39,7 +39,10 @@ export default function PalletRackInputs() {
       palletRackBeamWidth: getInput(1, 100, 500, "Ép (mm)"),
       palletRackByCell: getInput(1, 1, 4, "Palettes/alvéole"),
       palletRackRotate: {
-        options: ["longitudinale", "transversale"],
+        options: ["longitudinale", "transversale"] as (
+          | "longitudinale"
+          | "transversale"
+        )[],
         type: LevaInputs.SELECT,
       },
     }),
