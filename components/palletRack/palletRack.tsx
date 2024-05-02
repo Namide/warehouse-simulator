@@ -101,7 +101,7 @@ export default function PalletRack({ options }: { options: Options }) {
           ladderThickness,
           options.palletRackLadderWidth - ladderThickness,
           height,
-        ],
+        ] as [number, number, number],
       };
     });
 
