@@ -78,7 +78,7 @@ export default function PalletRackInputs() {
       const list = document.body.querySelectorAll(".leva-c-dosbYs");
 
       if (list.length) {
-        list.forEach((item) => item.click());
+        list.forEach((item) => (item as HTMLElement).click());
         firstMount = false;
       } else {
         requestAnimationFrame(onMounted);
