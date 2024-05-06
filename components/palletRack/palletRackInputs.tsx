@@ -2,6 +2,7 @@
 
 import { LevaInputs, folder, useControls } from "leva";
 import Scene3D from "@/components/palletRack/scene3d";
+import { useEffect } from "react";
 
 function getInput(min: number, value: number, max: number, label: string) {
   return {
@@ -13,12 +14,18 @@ function getInput(min: number, value: number, max: number, label: string) {
   };
 }
 
+let firstMount = true;
+
 export default function PalletRackInputs() {
   const options = useControls({
     Palette: folder({
       palletLength: getInput(1, 1000, 2000, "L (mm)"),
       palletWidth: getInput(1, 500, 2000, "l (mm)"),
       palletHeight: getInput(1, 100, 300, "h (mm)"),
+    }),
+    Mur: folder({
+      wallLength: getInput(1000, 3000, 20000, "L (mm)"),
+      wallHeight: getInput(2000, 3000, 8000, "h (mm)"),
     }),
     Charge: folder({
       "Sur la L de la palette": folder({
@@ -64,6 +71,21 @@ export default function PalletRackInputs() {
 
     hq: { value: true, label: "hq" },
   });
+
+  // Ugly way to force inputs folders to close
+  const onMounted = () => {
+    if (firstMount) {
+      const list = document.body.querySelectorAll(".leva-c-dosbYs");
+
+      if (list.length) {
+        list.forEach((item) => item.click());
+        firstMount = false;
+      } else {
+        requestAnimationFrame(onMounted);
+      }
+    }
+  };
+  requestAnimationFrame(onMounted);
 
   return (
     <div className="w-screen h-screen">

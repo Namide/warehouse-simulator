@@ -1,8 +1,8 @@
 "use client";
 
-const SCALE = 1000;
+const SCALE = 1500;
 
-import { Vector3, Euler, MultiplyBlending, Object3D } from "three";
+import { Euler, MultiplyBlending, Object3D } from "three";
 import React, { useEffect, useRef } from "react";
 import {
   Bloom,
@@ -11,17 +11,15 @@ import {
   Vignette,
 } from "@react-three/postprocessing";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment } from "@react-three/drei";
-import { createRng } from "@/helpers/rng";
+import { OrbitControls, Environment, BakeShadows } from "@react-three/drei";
 import { BlendFunction } from "postprocessing";
 import getPath from "@/helpers/path";
-import Pallet from "./pallet";
-import Box from "./box";
 import PalletRack from "./palletRack";
-import PalletBoxes from "./palletBoxes";
-import Cell from "./cell";
+import Wall from "./wall";
 
 export type Options = {
+  wallLength: number;
+  wallHeight: number;
   palletLength: number;
   palletWidth: number;
   palletHeight: number;
@@ -88,6 +86,7 @@ function Render3D({
     near: number;
   };
 }) {
+  console.log("render");
   return (
     <Canvas camera={camera} shadows={hq && "soft"}>
       {children}
@@ -97,8 +96,10 @@ function Render3D({
           <directionalLight
             intensity={5}
             castShadow
-            position={[-1, 5, -3]}
+            position={[1, 5, 1]}
             shadow-bias={-0.0001}
+            shadow-mapSize-x={2048}
+            shadow-mapSize-y={2048}
           />
           {/* <ambientLight intensity={0.2} /> */}
           <mesh receiveShadow rotation-x={-Math.PI / 2}>
@@ -106,7 +107,7 @@ function Render3D({
             <meshStandardMaterial
               envMapIntensity={0}
               blending={MultiplyBlending}
-              color={"#C5C5C5"}
+              color={"#BCBCBC"}
             />
           </mesh>
         </>
@@ -142,8 +143,10 @@ function Render3D({
 }
 
 export default function Scene3D({ options }: { options: Options }) {
+  const MAX_DISTANCE = 8;
   const CAM_MIN_DISTANCE =
     Math.max(options.palletLength, options.palletWidth) / SCALE;
+  const key = Math.random();
 
   return (
     <div className="w-screen h-screen">
@@ -151,16 +154,17 @@ export default function Scene3D({ options }: { options: Options }) {
         hq={options.hq}
         camera={{
           position: [CAM_MIN_DISTANCE * 2, CAM_MIN_DISTANCE, CAM_MIN_DISTANCE],
-          far: 30,
+          far: 100,
           near: 0.1,
         }}
       >
+        <BakeShadows key={key} />
         {/* https://github.com/pmndrs/drei?tab=readme-ov-file#environment */}
         <Environment
-          files={getPath("/assets/warehouse.hdr")}
+          files={getPath("/assets/farm.hdr")}
           environmentIntensity={options.hq ? 0.4 : 0.8}
           backgroundIntensity={options.hq ? 1 : 0.8}
-          ground={{ radius: 10, height: 3, scale: 8 }}
+          ground={{ radius: 60, height: 10, scale: MAX_DISTANCE }}
         ></Environment>
         {/* <spotLight
           position={[3000, 3000, 3000]}
@@ -174,13 +178,14 @@ export default function Scene3D({ options }: { options: Options }) {
         <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE}>
           <PalletRack options={options} />
           {/* <Cell options={options} position={[0, 0, 0]} /> */}
+          <Wall options={options} />
         </group>
 
         <OrbitControls
           minPolarAngle={0}
           maxPolarAngle={Math.PI / 2.1}
           minDistance={CAM_MIN_DISTANCE}
-          maxDistance={8}
+          maxDistance={MAX_DISTANCE}
           enablePan={false}
         />
       </Render3D>

@@ -1,4 +1,4 @@
-import { Vector3 } from "three";
+import { DoubleSide, Vector3 } from "three";
 import { Options } from "./scene3d";
 import Cell from "./cell";
 
@@ -40,7 +40,7 @@ function Ladder({
           roughness={0.25}
           metalness={1}
           wireframe={false}
-          // shadowSide={FrontSide}
+          shadowSide={DoubleSide}
         />
       </mesh>
       <mesh
@@ -56,7 +56,7 @@ function Ladder({
           roughness={0.25}
           metalness={1}
           wireframe={false}
-          // shadowSide={FrontSide}
+          shadowSide={DoubleSide}
         />
       </mesh>
       {horizontalBars.map((opt, index) => (
@@ -74,7 +74,7 @@ function Ladder({
             roughness={0.25}
             metalness={1}
             wireframe={false}
-            // shadowSide={FrontSide}
+            shadowSide={DoubleSide}
           />
         </mesh>
       ))}
