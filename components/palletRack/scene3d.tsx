@@ -173,7 +173,7 @@ export default function Scene3D({ options }: { options: Options }) {
 
         <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE}>
           <PalletRack options={options} />
-          <Cell options={options} position={[0, 0, 0]} />
+          {/* <Cell options={options} position={[0, 0, 0]} /> */}
         </group>
 
         <OrbitControls
