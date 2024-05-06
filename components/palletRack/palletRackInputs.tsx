@@ -2,7 +2,6 @@
 
 import { LevaInputs, folder, useControls } from "leva";
 import Scene3D from "@/components/palletRack/scene3d";
-import { useEffect } from "react";
 
 function getInput(min: number, value: number, max: number, label: string) {
   return {
@@ -81,11 +80,11 @@ export default function PalletRackInputs() {
         list.forEach((item) => (item as HTMLElement).click());
         firstMount = false;
       } else {
-        requestAnimationFrame(onMounted);
+        window.requestAnimationFrame(onMounted);
       }
     }
   };
-  requestAnimationFrame(onMounted);
+  window.requestAnimationFrame(onMounted);
 
   return (
     <div className="w-screen h-screen">
