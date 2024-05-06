@@ -18,6 +18,8 @@ import getPath from "@/helpers/path";
 import Pallet from "./pallet";
 import Box from "./box";
 import PalletRack from "./palletRack";
+import PalletBoxes from "./palletBoxes";
+import Cell from "./cell";
 
 export type Options = {
   palletLength: number;
@@ -140,23 +142,6 @@ function Render3D({
 }
 
 export default function Scene3D({ options }: { options: Options }) {
-  const palletSize = [
-    options.palletLength,
-    options.palletWidth,
-    options.palletHeight,
-  ];
-
-  const rng = createRng(7);
-  const boxes: [number, number, number, [number, number, number, number]][] =
-    [];
-  for (let i = 0; i < options.boxLengthCount; i++) {
-    for (let j = 0; j < options.boxWidthCount; j++) {
-      for (let k = 0; k < options.boxFloorsCount; k++) {
-        boxes.push([i, j, k, [rng(), rng(), rng(), rng()]]);
-      }
-    }
-  }
-
   const CAM_MIN_DISTANCE =
     Math.max(options.palletLength, options.palletWidth) / SCALE;
 
@@ -188,42 +173,7 @@ export default function Scene3D({ options }: { options: Options }) {
 
         <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE}>
           <PalletRack options={options} />
-
-          <Pallet
-            position={new Vector3(0, 0, 0)}
-            size={palletSize}
-            hq={options.hq}
-          />
-
-          {boxes.map(([i, j, k, seeds]) => (
-            <Box
-              hq={options.hq}
-              position={
-                new Vector3(
-                  options.palletLength / 2 +
-                    i * options.boxLengthSize -
-                    options.palletLength / 2 +
-                    options.boxLengthSize / 2 -
-                    (options.boxLengthSize * options.boxLengthCount) / 2,
-                  options.palletWidth / 2 +
-                    j * options.boxWidthSize -
-                    options.palletWidth / 2 +
-                    options.boxWidthSize / 2 -
-                    (options.boxWidthSize * options.boxWidthCount) / 2,
-                  k * options.boxHeight +
-                    options.boxHeight / 2 +
-                    options.palletHeight
-                )
-              }
-              seeds={seeds}
-              size={[
-                options.boxLengthSize,
-                options.boxWidthSize,
-                options.boxHeight,
-              ]}
-              key={`${i}-${j}-${k}`}
-            />
-          ))}
+          <Cell options={options} position={[0, 0, 0]} />
         </group>
 
         <OrbitControls
