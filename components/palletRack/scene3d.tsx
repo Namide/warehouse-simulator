@@ -2,8 +2,8 @@
 
 const SCALE = 1500;
 
-import { Euler, MultiplyBlending, Object3D } from "three";
-import React, { useEffect, useRef } from "react";
+import { Euler, MultiplyBlending } from "three";
+import React from "react";
 import {
   Bloom,
   EffectComposer,
@@ -46,32 +46,32 @@ export type Options = {
 };
 
 // https://docs.pmnd.rs/react-three-fiber/advanced/scaling-performance#instancing
-function Instances({
-  count = 100000,
-  temp = new Object3D(),
-  children,
-}: {
-  count: number;
-  temp: Object3D;
-  children: React.ReactNode;
-}) {
-  const instancedMeshRef = useRef<any>();
-  useEffect(() => {
-    // Set positions
-    for (let i = 0; i < count; i++) {
-      temp.position.set(Math.random(), Math.random(), Math.random());
-      temp.updateMatrix();
-      instancedMeshRef.current.setMatrixAt(i, temp.matrix);
-    }
-    // Update the instance
-    instancedMeshRef.current.instanceMatrix.needsUpdate = true;
-  }, []);
-  return (
-    <instancedMesh ref={instancedMeshRef} args={[undefined, undefined, count]}>
-      {children}
-    </instancedMesh>
-  );
-}
+// function Instances({
+//   count = 100000,
+//   temp = new Object3D(),
+//   children,
+// }: {
+//   count: number;
+//   temp: Object3D;
+//   children: React.ReactNode;
+// }) {
+//   const instancedMeshRef = useRef<any>();
+//   useEffect(() => {
+//     // Set positions
+//     for (let i = 0; i < count; i++) {
+//       temp.position.set(Math.random(), Math.random(), Math.random());
+//       temp.updateMatrix();
+//       instancedMeshRef.current.setMatrixAt(i, temp.matrix);
+//     }
+//     // Update the instance
+//     instancedMeshRef.current.instanceMatrix.needsUpdate = true;
+//   }, []);
+//   return (
+//     <instancedMesh ref={instancedMeshRef} args={[undefined, undefined, count]}>
+//       {children}
+//     </instancedMesh>
+//   );
+// }
 
 function Render3D({
   children,
