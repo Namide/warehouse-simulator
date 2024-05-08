@@ -22,21 +22,22 @@ export default function PalletRackInputs() {
       palletWidth: getInput(1, 500, 2000, "l (mm)"),
       palletHeight: getInput(1, 100, 300, "h (mm)"),
     }),
-    Mur: folder({
-      wallLength: getInput(1000, 3000, 20000, "L (mm)"),
-      wallHeight: getInput(2000, 3000, 8000, "h (mm)"),
-    }),
+    
     Charge: folder({
-      "Sur la L de la palette": folder({
+      "Sur la Longueur de la palette": folder({
         boxLengthCount: getInput(1, 3, 300, "Nbre"),
-        boxLengthSize: getInput(1, 250, 2000, "Dimension"),
+        boxLengthSize: getInput(1, 250, 2000, "Taille"),
       }),
-      "Sur la l de la palette": folder({
+      "Sur la largeur de la palette": folder({
         boxWidthCount: getInput(1, 2, 300, "Nbre"),
-        boxWidthSize: getInput(1, 250, 2000, "Dimension"),
+        boxWidthSize: getInput(1, 250, 2000, "Taille"),
       }),
       boxHeight: getInput(1, 200, 1500, "h mm"),
-      boxFloorsCount: getInput(1, 1, 20, "Nbre de lits"),
+      boxFloorsCount: getInput(1, 1, 20, "Lits"),
+    }),
+    Espace: folder({
+      wallLength: getInput(1000, 3000, 20000, "L (mm)"),
+      wallHeight: getInput(4000, 3000, 8000, "h (mm)"),
     }),
     // Palettier: folder({
     Lisses: folder({
