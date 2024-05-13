@@ -69,7 +69,7 @@ export default function PalletRackInputs() {
     }),
     // }),
 
-    hq: { value: true, label: "hq" },
+    hq: { value: false, label: "hq" },
   });
 
   // Ugly way to force inputs folders to close
