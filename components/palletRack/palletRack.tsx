@@ -36,7 +36,7 @@ function Ladder({
         <boxGeometry args={[size[0], size[0], size[2]]} />
         <meshStandardMaterial
           // map={plankMap}
-          color={0xaaaaaa}
+          color={0x607990}
           roughness={0.25}
           metalness={1}
           wireframe={false}
@@ -52,7 +52,7 @@ function Ladder({
         <boxGeometry args={[size[0], size[0], size[2]]} />
         <meshStandardMaterial
           // map={plankMap}
-          color={0xaaaaaa}
+          color={0x607990}
           roughness={0.25}
           metalness={1}
           wireframe={false}
@@ -70,7 +70,7 @@ function Ladder({
           <boxGeometry args={[...opt.size]} />
           <meshStandardMaterial
             // map={plankMap}
-            color={0xaaaaaa}
+            color={0x607990}
             roughness={0.25}
             metalness={1}
             wireframe={false}

@@ -35,7 +35,7 @@ export default function PalletRackInputs() {
       boxHeight: getInput(1, 200, 1500, "h mm"),
       boxFloorsCount: getInput(1, 1, 20, "Lits"),
     }),
-    Espace: folder({
+    "Espace disponible": folder({
       wallLength: getInput(1000, 3000, 20000, "L (mm)"),
       wallHeight: getInput(4000, 3000, 8000, "h (mm)"),
     }),
@@ -53,7 +53,7 @@ export default function PalletRackInputs() {
         type: LevaInputs.SELECT,
       },
     }),
-    "Niveaux suppérieurs": folder({
+    "Niveaux": folder({
       groundCellHeight: getInput(1, 1000, 3000, "h du RdC"),
       floorCellHeight: getInput(1, 1000, 3000, "h étage"),
       floorCount: getInput(0, 0, 20, "Nbre"),
