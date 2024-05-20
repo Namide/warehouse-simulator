@@ -3,8 +3,10 @@
 const SCALE = 1500;
 export const PALLET_STORAGE_DIRECTION = "Rotation";
 
+export const eventDispatcher = new EventTarget();
+
 import { Euler, MultiplyBlending } from "three";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Bloom,
   EffectComposer,
@@ -87,7 +89,6 @@ function Render3D({
     near: number;
   };
 }) {
-  console.log("render");
   return (
     <Canvas camera={camera} shadows={hq && "soft"}>
       {children}
@@ -149,6 +150,34 @@ export default function Scene3D({ options }: { options: Options }) {
     Math.max(options.palletLength, options.palletWidth) / SCALE;
   const key = Math.random();
 
+  const [target, setTarget] = useState([0, 0, 0]);
+  const [position, setPosition] = useState([
+    CAM_MIN_DISTANCE * 2,
+    CAM_MIN_DISTANCE,
+    CAM_MIN_DISTANCE,
+  ]);
+
+  useEffect(() => {
+    function onCenter() {
+      setTarget([
+        Math.random() * 0.001,
+        Math.random() * 0.001,
+        Math.random() * 0.001,
+      ]);
+      setPosition([
+        CAM_MIN_DISTANCE * 2 + Math.random() * 0.001,
+        CAM_MIN_DISTANCE + Math.random() * 0.001,
+        CAM_MIN_DISTANCE + Math.random() * 0.001,
+      ]);
+    }
+
+    eventDispatcher.addEventListener("center", onCenter);
+
+    return () => {
+      eventDispatcher.removeEventListener("center", onCenter);
+    };
+  }, [CAM_MIN_DISTANCE]);
+
   return (
     <div className="w-screen h-screen">
       <Render3D
@@ -187,7 +216,14 @@ export default function Scene3D({ options }: { options: Options }) {
           maxPolarAngle={Math.PI / 2.1}
           minDistance={CAM_MIN_DISTANCE}
           maxDistance={MAX_DISTANCE}
-          enablePan={false}
+          enablePan={true}
+          // position={camPos}
+          target-x={target[0]}
+          target-y={target[1]}
+          target-z={target[2]}
+          object-position-x={position[0]}
+          object-position-y={position[1]}
+          object-position-z={position[2]}
         />
       </Render3D>
     </div>

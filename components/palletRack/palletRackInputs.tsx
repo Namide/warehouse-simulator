@@ -1,9 +1,11 @@
 "use client";
 
-import { LevaInputs, folder, useControls } from "leva";
+import { LevaInputs, button, folder, useControls } from "leva";
 import Scene3D, {
   PALLET_STORAGE_DIRECTION,
+  eventDispatcher,
 } from "@/components/palletRack/scene3d";
+import { useRef } from "react";
 
 function getInput(min: number, value: number, max: number, label: string) {
   return {
@@ -72,6 +74,9 @@ export default function PalletRackInputs() {
     // }),
 
     hq: { value: false, label: "hq" },
+    "Centrer la caméra": button(() => {
+      eventDispatcher.dispatchEvent(new Event("center"));
+    }),
   });
 
   // Ugly way to force inputs folders to close
