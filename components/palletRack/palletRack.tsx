@@ -235,12 +235,14 @@ export default function PalletRack({ options }: { options: Options }) {
       options.palletRackBeamLength / 2 +
       x * (options.palletRackBeamLength + ladderThickness);
     for (let z = 0; z < options.floorCount; z++) {
+      const zFirstFloor =
+        options.groundCellHeight + options.palletRackBeamHeight;
       const posZ =
-        z === 0
-          ? options.groundCellHeight + options.palletRackBeamHeight / 2
-          : options.groundCellHeight +
-            z * options.floorCellHeight -
-            options.palletRackBeamHeight / 2;
+        (z === 0
+          ? zFirstFloor
+          : zFirstFloor +
+            z * (options.floorCellHeight + options.palletRackBeamHeight)) -
+        options.palletRackBeamHeight / 2;
       beamsOptions.push({
         position: [posX, 0, posZ],
         size: [
