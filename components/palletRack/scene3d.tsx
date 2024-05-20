@@ -1,6 +1,7 @@
 "use client";
 
 const SCALE = 1500;
+export const PALLET_STORAGE_DIRECTION = "Rotation";
 
 import { Euler, MultiplyBlending } from "three";
 import React from "react";
@@ -33,7 +34,7 @@ export type Options = {
   palletRackBeamHeight: number;
   palletRackBeamWidth: number;
   palletRackByCell: number;
-  palletRackRotate: "longitudinale" | "transversale";
+  [PALLET_STORAGE_DIRECTION]: "longitudinale" | "transversale";
   groundCellHeight: number;
   floorCellHeight: number;
   floorCount: number;

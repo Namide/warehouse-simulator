@@ -1,7 +1,7 @@
 import { Vector3 } from "three";
 import Box from "./box";
 import Pallet from "./pallet";
-import { Options } from "./scene3d";
+import { Options, PALLET_STORAGE_DIRECTION } from "./scene3d";
 import { createRng } from "@/helpers/rng";
 
 export default function PalletBoxes({
@@ -26,7 +26,7 @@ export default function PalletBoxes({
     <group
       position={position}
       rotation-z={
-        options.palletRackRotate === "longitudinale" ? Math.PI / 2 : 0
+        options[PALLET_STORAGE_DIRECTION] === "longitudinale" ? Math.PI / 2 : 0
       }
     >
       <Pallet options={options} />

@@ -1,5 +1,5 @@
 import PalletBoxes from "./palletBoxes";
-import { Options } from "./scene3d";
+import { Options, PALLET_STORAGE_DIRECTION } from "./scene3d";
 
 export default function Cell({
   options,
@@ -15,7 +15,7 @@ export default function Cell({
     .map((_, index) => {
       const widthMax = options.palletRackBeamLength;
       const pallettWidth =
-        options.palletRackRotate === "longitudinale"
+        options[PALLET_STORAGE_DIRECTION] === "longitudinale"
           ? options.palletWidth
           : options.palletLength;
       const emptyWidth = widthMax - pallettWidth * options.palletRackByCell;

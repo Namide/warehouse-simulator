@@ -1,7 +1,9 @@
 "use client";
 
 import { LevaInputs, folder, useControls } from "leva";
-import Scene3D from "@/components/palletRack/scene3d";
+import Scene3D, {
+  PALLET_STORAGE_DIRECTION,
+} from "@/components/palletRack/scene3d";
 
 function getInput(min: number, value: number, max: number, label: string) {
   return {
@@ -45,7 +47,7 @@ export default function PalletRackInputs() {
       palletRackBeamHeight: getInput(1, 100, 500, "h (mm)"), // plus petit
       palletRackBeamWidth: getInput(1, 50, 500, "Ép (mm)"),
       palletRackByCell: getInput(1, 1, 4, "Palettes/alvéole"),
-      palletRackRotate: {
+      [PALLET_STORAGE_DIRECTION]: {
         options: ["longitudinale", "transversale"] as (
           | "longitudinale"
           | "transversale"
