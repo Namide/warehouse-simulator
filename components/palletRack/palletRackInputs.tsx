@@ -22,7 +22,7 @@ export default function PalletRackInputs() {
       palletWidth: getInput(1, 500, 2000, "l (mm)"),
       palletHeight: getInput(1, 100, 300, "h (mm)"),
     }),
-    
+
     Charge: folder({
       "Sur la Longueur de la palette": folder({
         boxLengthCount: getInput(1, 3, 300, "Nbre"),
@@ -53,7 +53,7 @@ export default function PalletRackInputs() {
         type: LevaInputs.SELECT,
       },
     }),
-    "Niveaux": folder({
+    Niveaux: folder({
       groundCellHeight: getInput(1, 1000, 3000, "h du RdC"),
       floorCellHeight: getInput(1, 1000, 3000, "h étage"),
       floorCount: getInput(0, 0, 20, "Nbre"),
@@ -65,7 +65,7 @@ export default function PalletRackInputs() {
       palletRackLadderCount: getInput(0, 0, 20, "Nbre"),
     }),
     "Échelles extrémités": folder({
-      palletRackLadderExtLength: getInput(1, 500, 5000, "h sup (mm)"),
+      palletRackLadderExtLength: getInput(1, 3500, 20000, "h (mm)"),
     }),
     // }),
 

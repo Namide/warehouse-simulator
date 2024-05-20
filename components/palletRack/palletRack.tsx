@@ -203,10 +203,9 @@ export default function PalletRack({ options }: { options: Options }) {
     .fill(1)
     .map((_, index) => {
       const height =
-        options.palletRackLadderLength +
-        (index === 0 || index === options.palletRackLadderCount + 1
+        index === 0 || index === options.palletRackLadderCount + 1
           ? options.palletRackLadderExtLength
-          : 0);
+          : options.palletRackLadderLength;
       return {
         position: [
           index * (options.palletRackBeamLength + ladderThickness) +
