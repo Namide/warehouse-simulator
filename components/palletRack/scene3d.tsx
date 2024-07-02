@@ -45,6 +45,8 @@ export type Options = {
   palletRackLadderWidth: number;
   palletRackLadderCount: number;
   palletRackLadderExtLength: number;
+  hasPalletRack: boolean;
+  hasWall: boolean;
   hq: boolean;
 };
 
@@ -207,8 +209,8 @@ export default function Scene3D({ options }: { options: Options }) {
 
         <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE}>
           <PalletRack options={options} />
+          {options.hasWall ? <Wall options={options} /> : null}
           {/* <Cell options={options} position={[0, 0, 0]} /> */}
-          <Wall options={options} />
         </group>
 
         <OrbitControls

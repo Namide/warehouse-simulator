@@ -262,12 +262,16 @@ export default function PalletRack({ options }: { options: Options }) {
 
   return (
     <group position-x={-totalWidth / 2}>
-      {laddersOptions.map((opt, index) => (
-        <Ladder {...opt} hq={options.hq} key={index} />
-      ))}
-      {beamsOptions.map((opt, index) => (
-        <Beam {...opt} hq={options.hq} key={index} />
-      ))}
+      {options.hasPalletRack
+        ? laddersOptions.map((opt, index) => (
+            <Ladder {...opt} hq={options.hq} key={index} />
+          ))
+        : null}
+      {options.hasPalletRack
+        ? beamsOptions.map((opt, index) => (
+            <Beam {...opt} hq={options.hq} key={index} />
+          ))
+        : null}
       {cellsOptions.map((opt, index) => (
         <Cell options={options} position={opt.position} key={index} />
       ))}
