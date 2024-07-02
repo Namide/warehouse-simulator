@@ -5,7 +5,7 @@ import Scene3D, {
   PALLET_STORAGE_DIRECTION,
   eventDispatcher,
 } from "@/components/palletRack/scene3d";
-import { useRef } from "react";
+import { useEffect } from "react";
 
 function getInput(min: number, value: number, max: number, label: string) {
   return {
@@ -21,6 +21,7 @@ let firstMount = true;
 
 export default function PalletRackInputs() {
   const options = useControls({
+    Titre: "Warehouse Simulator",
     Palette: folder({
       palletLength: getInput(1, 1000, 2000, "L (mm)"),
       palletWidth: getInput(1, 500, 2000, "l (mm)"),
@@ -96,6 +97,11 @@ export default function PalletRackInputs() {
     }
   };
   window.requestAnimationFrame(onMounted);
+
+  // Update page title from "Titre" options
+  useEffect(() => {
+    document.title = options.Titre;
+  });
 
   return (
     <div className="w-screen h-screen">
