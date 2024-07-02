@@ -47,6 +47,7 @@ export type Options = {
   palletRackLadderExtLength: number;
   hasPalletRack: boolean;
   hasWall: boolean;
+  hasBox: boolean;
   hq: boolean;
 };
 

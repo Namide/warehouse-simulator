@@ -38,12 +38,12 @@ export default function PalletRackInputs() {
       }),
       boxHeight: getInput(50, 200, 1500, "h mm"),
       boxFloorsCount: getInput(1, 1, 20, "Lits"),
-      hasBox: { value: false, label: "Afficher" }
+      hasBox: { value: false, label: "Afficher" },
     }),
     "Espace disponible": folder({
       wallLength: getInput(1000, 3000, 20000, "L (mm)"),
       wallHeight: getInput(4000, 3000, 8000, "h (mm)"),
-      hasWall: { value: false, label: "Afficher" }
+      hasWall: { value: false, label: "Afficher" },
     }),
 
     // Palettier: folder({
@@ -65,7 +65,7 @@ export default function PalletRackInputs() {
       groundCellHeight: getInput(1, 1000, 3000, "h du RdC"),
       floorCellHeight: getInput(1, 1000, 3000, "h étage"),
       floorCount: getInput(0, 0, 20, "Nbre"),
-      hasPalletRack: { value: false, label: "Afficher" }
+      hasPalletRack: { value: false, label: "Afficher" },
     }),
     "Échelles intermédiaires": folder({
       palletRackLadderLength: getInput(1, 3000, 15000, "h (mm)"),
