@@ -30,36 +30,37 @@ export default function PalletBoxes({
       }
     >
       <Pallet options={options} />
-
-      {boxes.map(([i, j, k, seeds]) => (
-        <Box
-          hq={options.hq}
-          position={
-            new Vector3(
-              options.palletLength / 2 +
-                i * options.boxLengthSize -
+      {options.hasBox
+        ?boxes.map(([i, j, k, seeds]) => (
+          <Box
+            hq={options.hq}
+            position={
+              new Vector3(
                 options.palletLength / 2 +
-                options.boxLengthSize / 2 -
-                (options.boxLengthSize * options.boxLengthCount) / 2,
-              options.palletWidth / 2 +
-                j * options.boxWidthSize -
+                  i * options.boxLengthSize -
+                  options.palletLength / 2 +
+                  options.boxLengthSize / 2 -
+                  (options.boxLengthSize * options.boxLengthCount) / 2,
                 options.palletWidth / 2 +
-                options.boxWidthSize / 2 -
-                (options.boxWidthSize * options.boxWidthCount) / 2,
-              k * options.boxHeight +
-                options.boxHeight / 2 +
-                options.palletHeight
-            )
-          }
-          seeds={seeds}
-          size={[
-            options.boxLengthSize,
-            options.boxWidthSize,
-            options.boxHeight,
-          ]}
-          key={`${i}-${j}-${k}`}
-        />
-      ))}
+                  j * options.boxWidthSize -
+                  options.palletWidth / 2 +
+                  options.boxWidthSize / 2 -
+                  (options.boxWidthSize * options.boxWidthCount) / 2,
+                k * options.boxHeight +
+                  options.boxHeight / 2 +
+                  options.palletHeight
+              )
+            }
+            seeds={seeds}
+            size={[
+              options.boxLengthSize,
+              options.boxWidthSize,
+              options.boxHeight,
+            ]}
+            key={`${i}-${j}-${k}`}
+          />
+        ))
+      :null}
     </group>
   );
 }

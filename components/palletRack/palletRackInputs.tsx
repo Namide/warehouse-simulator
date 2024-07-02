@@ -29,23 +29,23 @@ export default function PalletRackInputs() {
     }),
     Charge: folder({
       "Sur la Longueur de la palette": folder({
-        boxLengthCount: getInput(1, 3, 300, "Nbre"),
-        boxLengthSize: getInput(1, 250, 2000, "Taille"),
+        boxLengthCount: getInput(1, 3, 30, "Nbre"),
+        boxLengthSize: getInput(50, 250, 600, "Taille"),
       }),
       "Sur la largeur de la palette": folder({
-        boxWidthCount: getInput(1, 2, 300, "Nbre"),
-        boxWidthSize: getInput(1, 250, 2000, "Taille"),
+        boxWidthCount: getInput(1, 2, 30, "Nbre"),
+        boxWidthSize: getInput(50, 250, 600, "Taille"),
       }),
-      boxHeight: getInput(1, 200, 1500, "h mm"),
+      boxHeight: getInput(50, 200, 1500, "h mm"),
       boxFloorsCount: getInput(1, 1, 20, "Lits"),
+      hasBox: { value: false, label: "Afficher" }
     }),
-    hasWall: { value: false, label: "Mur" },
     "Espace disponible": folder({
       wallLength: getInput(1000, 3000, 20000, "L (mm)"),
       wallHeight: getInput(4000, 3000, 8000, "h (mm)"),
+      hasWall: { value: false, label: "Afficher" }
     }),
 
-    hasPalletRack: { value: false, label: "Palletier" },
     // Palettier: folder({
     Lisses: folder({
       palletRackBeamLength: getInput(1, 1000, 4000, "L (mm)"),
@@ -65,6 +65,7 @@ export default function PalletRackInputs() {
       groundCellHeight: getInput(1, 1000, 3000, "h du RdC"),
       floorCellHeight: getInput(1, 1000, 3000, "h étage"),
       floorCount: getInput(0, 0, 20, "Nbre"),
+      hasPalletRack: { value: false, label: "Afficher" }
     }),
     "Échelles intermédiaires": folder({
       palletRackLadderLength: getInput(1, 3000, 15000, "h (mm)"),
