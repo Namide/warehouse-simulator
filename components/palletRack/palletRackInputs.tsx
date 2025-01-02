@@ -78,7 +78,7 @@ export default function PalletRackInputs() {
     }),
     // }),
 
-    hq: { value: false, label: "hq" },
+    hq: { value: true, label: "hq" },
     "Centrer la caméra": button(() => {
       eventDispatcher.dispatchEvent(new Event("center"));
     }),
