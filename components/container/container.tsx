@@ -15,7 +15,7 @@ export default function ContainerModel(props: { position?: [number, number, numb
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes["12281_Container_v2_L2"].geometry}
+        geometry={(nodes["12281_Container_v2_L2"] as THREE.Mesh).geometry}
       >
         <meshStandardMaterial
           {...materials["12281_container"]}
@@ -27,7 +27,7 @@ export default function ContainerModel(props: { position?: [number, number, numb
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes["12281_Container_v2_L2_1"].geometry}
+        geometry={(nodes["12281_Container_v2_L2_1"] as THREE.Mesh).geometry}
       >
         <meshStandardMaterial
           {...materials["_container_alum"]}
@@ -39,7 +39,7 @@ export default function ContainerModel(props: { position?: [number, number, numb
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes["12281_Container_v2_L2_2"].geometry}
+        geometry={(nodes["12281_Container_v2_L2_2"] as THREE.Mesh).geometry}
       >
         <meshStandardMaterial
           {...materials["wood"]}

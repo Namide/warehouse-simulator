@@ -27,3 +27,12 @@ dev:
 		-e NPM_CONFIG_PREFIX=/home/node/.npm-global \
 		node:20-slim \
 		npm run dev
+
+build:
+	docker run -ti --rm \
+		-v $(shell pwd)\:/usr/src/app \
+		-w /usr/src/app \
+		-u "node" \
+		-e NPM_CONFIG_PREFIX=/home/node/.npm-global \
+		node:20-slim \
+		npm run build
