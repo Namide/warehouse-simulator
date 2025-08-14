@@ -138,7 +138,7 @@ export default function Scene3D({ options }: { options: Options }) {
     };
   }, [CAM_MIN_DISTANCE]);
 
-  const gltf = useLoader(GLTFLoader, "/assets/container.glb");
+  const gltf = useLoader(GLTFLoader, getPath("/assets/container.glb"));
 
   return (
     <div className="w-screen h-screen">
@@ -170,7 +170,11 @@ export default function Scene3D({ options }: { options: Options }) {
         <group
           rotation={new Euler(-Math.PI / 2, 0, -Math.PI / 2)}
           scale={1 / SCALE}
-          position={[-options.containerLength / (2 * SCALE), 0.065 * options.containerHeight / 1000, 0]}
+          position={[
+            -options.containerLength / (2 * SCALE),
+            (0.065 * options.containerHeight) / 1000,
+            0,
+          ]}
         >
           <Boxes options={options} position={[0, 0, 0]} />
         </group>
@@ -179,7 +183,7 @@ export default function Scene3D({ options }: { options: Options }) {
         <ContainerModel
           position={[
             -options.containerLength / (2 * SCALE),
-            0.065 * options.containerHeight / SCALE,
+            (0.065 * options.containerHeight) / SCALE,
             0,
           ]}
           scale={[
