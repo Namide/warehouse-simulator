@@ -138,8 +138,6 @@ export default function Scene3D({ options }: { options: Options }) {
     };
   }, [CAM_MIN_DISTANCE]);
 
-  const gltf = useLoader(GLTFLoader, getPath("/assets/container.glb"));
-
   return (
     <div className="w-screen h-screen">
       <Render3D

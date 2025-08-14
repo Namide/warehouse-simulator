@@ -3,10 +3,11 @@
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
+import getPath from "@/helpers/path";
 
 export default function ContainerModel(props: { position?: [number, number, number], scale?: [number, number, number] }) {
   // const groupRef = useRef();
-  const { nodes, materials } = useGLTF("/assets/container.glb");
+  const { nodes, materials } = useGLTF(getPath("/assets/container.glb"));
 
   console.log(materials);
 
@@ -51,5 +52,3 @@ export default function ContainerModel(props: { position?: [number, number, numb
     </group>
   );
 }
-
-useGLTF.preload("/assets/container.glb");
