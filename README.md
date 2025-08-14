@@ -25,3 +25,7 @@ After that open [http://localhost:3000](http://localhost:3000) with your browser
 - [Plank texture by Kalhh](https://pixabay.com/photos/wood-texture-grain-template-239860/)
 - [Wall texture by Amal Kumar](https://polyhaven.com/a/concrete_layers)
 - [Abandoned Tank Farm 03 by Sergej Majboroda](https://polyhaven.com/a/abandoned_tank_farm_03)
+- [container](https://free3d.com/fr/3d-model/container-v2--890776.html)
+- [truck](https://free3d.com/fr/3d-model/truck-daf-99043.html)
+- [container wood material](https://polyhaven.com/a/wood_planks_dirt)
+- [container metal material](https://polyhaven.com/a/corrugated_iron)
