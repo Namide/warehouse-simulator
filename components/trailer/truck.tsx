@@ -14,6 +14,7 @@ export default function TruckModel(props: {
 
   console.log(materials);
 
+  // Generated with https://gltf.pmnd.rs/
   return (
     <group {...props} dispose={null} scale={[0.2, 0.2, 0.2]}>
       <group rotation={[Math.PI / 2, 0, Math.PI]} scale={2.256}>
