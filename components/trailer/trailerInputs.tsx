@@ -22,6 +22,11 @@ let firstMount = true;
 export default function TrailerInputs() {
   const options = useControls({
     Titre: "Warehouse Simulator",
+    Remorque: folder({
+      trailerLength: getInput(7500, 7500, 13600, "L (mm)"),
+      trailerWidth: getInput(2450, 2450, 2450, "l (mm)"),
+      trailerHeight: getInput(2400, 2500, 2700, "h (mm)"),
+    }),
     Palette: folder({
       palletLength: getInput(1, 1000, 2000, "L (mm)"),
       palletWidth: getInput(1, 500, 2000, "l (mm)"),

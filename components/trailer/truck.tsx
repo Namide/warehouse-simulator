@@ -7,72 +7,190 @@ import getPath from "@/helpers/path";
 
 export default function TruckModel(props: {
   position?: [number, number, number];
-  scale?: [number, number, number];
+  scale: [number, number, number];
+  transparent: boolean;
 }) {
   // const groupRef = useRef();
   const { nodes, materials } = useGLTF(getPath("/assets/truck.glb"));
 
-  console.log(materials);
+  // materials.bodycolour.wireframe = true
+  materials.bodycolour.transparent = props.transparent;
+  materials.bodycolour.opacity = props.transparent ? 0.5 : 1;
+
+  const globalReductor = 1.5
+
+  const newScale: [number, number, number] = [
+    props.scale[0] * globalReductor / (1000 * 3.53395), // largeur
+    props.scale[1] * globalReductor / (1000 * 3.79822), // hauteur
+    props.scale[2] * globalReductor / (1000 * 15.8563), // longueur
+  ]
+
+  const wheelScales: [number, number, number] = [
+    2.256,
+    2.256 * (1000 * 15.8563 / props.scale[2]) / globalReductor,
+    2.256,
+  ]
 
   // Generated with https://gltf.pmnd.rs/
   return (
-    <group {...props} dispose={null} scale={[0.2, 0.2, 0.2]}>
-      <group rotation={[Math.PI / 2, 0, Math.PI]} scale={2.256}>
+    <group position={props.position}  dispose={null} scale={[1 / globalReductor, 1 / globalReductor, 1 / globalReductor]}>
+      <group scale={newScale}>
+        <group rotation={[Math.PI / 2, 0, Math.PI]} scale={2.256}>
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.Truck_body_Truck_bodyL as THREE.Mesh).geometry}
+            material={materials.bodycolour}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.Truck_body_Truck_bodyL_1 as THREE.Mesh).geometry}
+            material={materials.diffuse_black}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.Truck_body_Truck_bodyL_2 as THREE.Mesh).geometry}
+            material={materials.door_knob}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.Truck_body_Truck_bodyL_3 as THREE.Mesh).geometry}
+            material={materials.flat_black}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.Truck_body_Truck_bodyL_4 as THREE.Mesh).geometry}
+            material={materials["signal_light.001"]}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.Truck_body_Truck_bodyL_5 as THREE.Mesh).geometry}
+            material={materials.full_glossy}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.Truck_body_Truck_bodyL_6 as THREE.Mesh).geometry}
+            material={materials.gloss_black}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.Truck_body_Truck_bodyL_7 as THREE.Mesh).geometry}
+            material={materials.tyres}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.Truck_body_Truck_bodyL_8 as THREE.Mesh).geometry}
+            material={materials.deep_black}
+          />
+        </group>
+        <group
+          position={[1.664, -1.069, 1.382]}
+          rotation={[Math.PI / 2, 0, 0]}
+          scale={wheelScales}
+        >
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.wheels_Circle029 as THREE.Mesh).geometry}
+            material={materials["tyres.011"]}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.wheels_Circle029_1 as THREE.Mesh).geometry}
+            material={materials["wheels.009"]}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.wheels_Circle029_2 as THREE.Mesh).geometry}
+            material={materials["tyres.009"]}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.wheels_Circle029_3 as THREE.Mesh).geometry}
+            material={materials["wheels.011"]}
+          />
+        </group>
+        <group
+          position={[1.664, -1.069, 8.976]}
+          rotation={[Math.PI / 2, 0, 0]}
+          scale={wheelScales}
+        >
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.wheels_Circle003 as THREE.Mesh).geometry}
+            material={materials["tyres.011"]}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.wheels_Circle003_1 as THREE.Mesh).geometry}
+            material={materials["wheels.009"]}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.wheels_Circle003_2 as THREE.Mesh).geometry}
+            material={materials["tyres.009"]}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.wheels_Circle003_3 as THREE.Mesh).geometry}
+            material={materials["wheels.011"]}
+          />
+        </group>
+        <group
+          position={[1.664, -1.069, 10.976]}
+          rotation={[Math.PI / 2, 0, 0]}
+          scale={wheelScales}
+        >
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.wheels_Circle004 as THREE.Mesh).geometry}
+            material={materials["tyres.011"]}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.wheels_Circle004_1 as THREE.Mesh).geometry}
+            material={materials["wheels.009"]}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.wheels_Circle004_2 as THREE.Mesh).geometry}
+            material={materials["tyres.009"]}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={(nodes.wheels_Circle004_3 as THREE.Mesh).geometry}
+            material={materials["wheels.011"]}
+          />
+        </group>
         <mesh
           castShadow
           receiveShadow
-          geometry={(nodes.Truck_body_Truck_bodyL as THREE.Mesh).geometry}
+          geometry={(nodes["truck-inside"] as THREE.Mesh).geometry}
           material={materials.bodycolour}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.Truck_body_Truck_bodyL_1 as THREE.Mesh).geometry}
-          material={materials.diffuse_black}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.Truck_body_Truck_bodyL_2 as THREE.Mesh).geometry}
-          material={materials.door_knob}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.Truck_body_Truck_bodyL_3 as THREE.Mesh).geometry}
-          material={materials.flat_black}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.Truck_body_Truck_bodyL_4 as THREE.Mesh).geometry}
-          material={materials["signal_light.001"]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.Truck_body_Truck_bodyL_5 as THREE.Mesh).geometry}
-          material={materials.full_glossy}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.Truck_body_Truck_bodyL_6 as THREE.Mesh).geometry}
-          material={materials.gloss_black}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.Truck_body_Truck_bodyL_7 as THREE.Mesh).geometry}
-          material={materials.tyres}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.Truck_body_Truck_bodyL_8 as THREE.Mesh).geometry}
-          material={materials.deep_black}
+          // material={(nodes["truck-inside"] as THREE.Mesh).material}
+          scale={[3.534, 3.798, 15.856]}
         />
       </group>
+
       <group
         position={[1.668, -1.069, -1.741]}
         rotation={[Math.PI / 2, 0, 0]}
@@ -181,103 +299,6 @@ export default function TruckModel(props: {
           material={(nodes.wheels_Circle028_16 as THREE.Mesh).material}
         />
       </group>
-      <group
-        position={[1.664, -1.069, 1.382]}
-        rotation={[Math.PI / 2, 0, 0]}
-        scale={2.256}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.wheels_Circle029 as THREE.Mesh).geometry}
-          material={materials["tyres.011"]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.wheels_Circle029_1 as THREE.Mesh).geometry}
-          material={materials["wheels.009"]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.wheels_Circle029_2 as THREE.Mesh).geometry}
-          material={materials["tyres.009"]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.wheels_Circle029_3 as THREE.Mesh).geometry}
-          material={materials["wheels.011"]}
-        />
-      </group>
-      <group
-        position={[1.664, -1.069, 8.976]}
-        rotation={[Math.PI / 2, 0, 0]}
-        scale={2.256}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.wheels_Circle003 as THREE.Mesh).geometry}
-          material={materials["tyres.011"]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.wheels_Circle003_1 as THREE.Mesh).geometry}
-          material={materials["wheels.009"]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.wheels_Circle003_2 as THREE.Mesh).geometry}
-          material={materials["tyres.009"]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.wheels_Circle003_3 as THREE.Mesh).geometry}
-          material={materials["wheels.011"]}
-        />
-      </group>
-      <group
-        position={[1.664, -1.069, 10.976]}
-        rotation={[Math.PI / 2, 0, 0]}
-        scale={2.256}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.wheels_Circle004 as THREE.Mesh).geometry}
-          material={materials["tyres.011"]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.wheels_Circle004_1 as THREE.Mesh).geometry}
-          material={materials["wheels.009"]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.wheels_Circle004_2 as THREE.Mesh).geometry}
-          material={materials["tyres.009"]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={(nodes.wheels_Circle004_3 as THREE.Mesh).geometry}
-          material={materials["wheels.011"]}
-        />
-      </group>
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={(nodes["truck-inside"] as THREE.Mesh).geometry}
-        material={(nodes["truck-inside"] as THREE.Mesh).material}
-        scale={[3.534, 3.798, 15.856]}
-      />
     </group>
   );
 }

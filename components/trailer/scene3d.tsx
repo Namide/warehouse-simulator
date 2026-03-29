@@ -1,7 +1,9 @@
 "use client";
 
-const SCALE = 1500;
+export const SCALE = 1000;
 export const PALLET_STORAGE_DIRECTION = "Rotation";
+
+const TRUCk_POSITION: [number, number, number] = [0, 0.4, 0]
 
 export const eventDispatcher = new EventTarget();
 
@@ -22,6 +24,9 @@ import Wall from "./wall";
 import TruckModel from "./truck";
 
 export type Options = {
+  trailerLength: number;
+  trailerWidth: number;
+  trailerHeight: number;
   wallLength: number;
   wallHeight: number;
   palletLength: number;
@@ -116,18 +121,7 @@ function Render3D({
               color={"#BCBCBC"}
             />
           </mesh>
-          <TruckModel
-                    // position={[
-                    //   -options.containerLength / (2 * SCALE),
-                    //   (0.065 * options.containerHeight) / SCALE,
-                    //   0,
-                    // ]}
-                    // scale={[
-                    //   options.containerLength / SCALE,
-                    //   options.containerHeight / SCALE,
-                    //   options.containerWidth / SCALE,
-                    // ]}
-                  />
+          
         </>
       )}
 
@@ -221,7 +215,18 @@ export default function Scene3D({ options }: { options: Options }) {
         /> */}
         {/* <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} /> */}
 
-        <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE}>
+      
+
+        <TruckModel
+          transparent={true}
+          position={TRUCk_POSITION}
+          scale={[
+            options.trailerWidth,
+            options.trailerHeight,
+            options.trailerLength,
+          ]}
+        />
+        <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE} position={TRUCk_POSITION}>
           <PalletRack options={options} />
           {options.hasWall ? <Wall options={options} /> : null}
           {/* <Cell options={options} position={[0, 0, 0]} /> */}
