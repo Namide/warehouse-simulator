@@ -24,7 +24,7 @@ export default function RootLayout({
           href={getPath('/cube.svg')}
         ></link>
 
-        <meta property="og:image" content={getPath('/assets/screenshot.jpg')}></meta>
+        <meta property="og:image" content={getPath('/assets/screenshot.avif')}></meta>
 
         <link rel="preload" href={getPath('/assets/warehouse.hdr')} as="image" />
         <link rel="preload" href={getPath('/assets/plank-texture.jpg')} as="image" />

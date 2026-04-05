@@ -2,7 +2,7 @@
 
 Exercices render for french logistics students 👩‍🎓
 
-![](/public/assets/screenshot.jpg)
+![](/public/assets/screenshot.avif)
 
 [namide.github.io/warehouse-simulator](https://namide.github.io/warehouse-simulator/)
 
