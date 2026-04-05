@@ -61,9 +61,28 @@ export default function TrailerInputs() {
         )[],
         type: LevaInputs.SELECT,
       },
-      palletRackWidthCount: getInput(1, 1, 4, "Nbre L"),
-      palletRackLenghtCount: getInput(1, 1, 14, "Nbre l"),
-      palletRackHeightCount: getInput(1, 1, 5, "Nbre h"),
+      "Dans la largeur de la remorque": folder({
+        palletRackWidthCount: getInput(1, 1, 4, "Nbre"),
+      }),
+      "Dans la Longueur de la remorque": folder({
+        palletRackLenghtCount: getInput(1, 1, 14, "Nbre"),
+      }),
+      "Dans la hauteur de la remorque": folder({
+        palletRackHeightCount: getInput(1, 1, 5, "Nbre"),
+      }),
+    }),
+
+    "Dernière rangée": folder({
+      lastPalletRotation: {
+        options: ["longitudinale", "transversale"] as (
+          | "longitudinale"
+          | "transversale"
+        )[],
+        type: LevaInputs.SELECT,
+        label: "Rotation",
+      },
+      lastPalletWidthCount: getInput(1, 1, 4, "Nbre"),
+      hasLastPallet: { value: false, label: "Ajouter" },
     }),
 
     // }),

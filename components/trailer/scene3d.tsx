@@ -39,6 +39,9 @@ export type Options = {
   palletRackLenghtCount: number;
   palletRackHeightCount: number;
   [PALLET_STORAGE_DIRECTION]: "longitudinale" | "transversale";
+  lastPalletRotation: "longitudinale" | "transversale";
+  lastPalletWidthCount: number;
+  hasLastPallet: boolean;
   hasBox: boolean;
   hq: boolean;
 };

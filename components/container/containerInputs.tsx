@@ -3,6 +3,7 @@
 import { button, folder, useControls } from "leva";
 import Scene3D, { eventDispatcher } from "@/components/container/scene3d";
 import { useEffect } from "react";
+import { label } from "three/examples/jsm/nodes/Nodes.js";
 
 function getInput(min: number, value: number, max: number, label: string, step = 1) {
   return {
@@ -24,7 +25,7 @@ export default function ContainerInputs() {
       containerWidth: getInput(2337, 2337, 4000, "l (mm)"),
       containerHeight: getInput(2388, 2390, 2692, "h (mm)"),
     }),
-    Charge: folder({
+    Chargement: folder({
       "Dans la Longueur du container": folder({
         boxLengthCount: getInput(1, 3, 30, "Nbre"),
         boxLengthSize: getInput(50, 250, 600, "Taille"),
