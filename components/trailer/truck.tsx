@@ -17,23 +17,29 @@ export default function TruckModel(props: {
   materials.bodycolour.transparent = props.transparent;
   materials.bodycolour.opacity = props.transparent ? 0.5 : 1;
 
-  const globalReductor = 1.5
+  const globalReductor = 1.5;
 
   const newScale: [number, number, number] = [
-    props.scale[0] * globalReductor / (1000 * 3.53395), // largeur
-    props.scale[1] * globalReductor / (1000 * 3.79822), // hauteur
-    props.scale[2] * globalReductor / (1000 * 15.8563), // longueur
-  ]
+    (props.scale[0] * globalReductor) / (1000 * 3.53395), // largeur
+    (props.scale[1] * globalReductor) / (1000 * 3.79822), // hauteur
+    (props.scale[2] * globalReductor) / (1000 * 15.8563), // longueur
+  ];
 
   const wheelScales: [number, number, number] = [
     2.256,
-    2.256 * (1000 * 15.8563 / props.scale[2]) / globalReductor,
-    2.256,
-  ]
+    (2.256 * ((1000 * 15.8563) / props.scale[2])) / globalReductor,
+    (2.256 * ((1000 * 3.79822) / props.scale[1])) / globalReductor,
+  ];
+
+  const wheelZ = ( (props.scale[1] - 2400) / (2700 - 2400)) / 7 - 0.14;
 
   // Generated with https://gltf.pmnd.rs/
   return (
-    <group position={props.position}  dispose={null} scale={[1 / globalReductor, 1 / globalReductor, 1 / globalReductor]}>
+    <group
+      position={props.position}
+      dispose={null}
+      scale={[1 / globalReductor, 1 / globalReductor, 1 / globalReductor]}
+    >
       <group scale={newScale}>
         <group rotation={[Math.PI / 2, 0, Math.PI]} scale={2.256}>
           <mesh
@@ -92,7 +98,7 @@ export default function TruckModel(props: {
           />
         </group>
         <group
-          position={[1.664, -1.069, 1.382]}
+          position={[1.664, -1.069 + wheelZ, 1.382]}
           rotation={[Math.PI / 2, 0, 0]}
           scale={wheelScales}
         >
@@ -122,7 +128,7 @@ export default function TruckModel(props: {
           />
         </group>
         <group
-          position={[1.664, -1.069, 8.976]}
+          position={[1.664, -1.069 + wheelZ, 8.976]}
           rotation={[Math.PI / 2, 0, 0]}
           scale={wheelScales}
         >
@@ -152,7 +158,7 @@ export default function TruckModel(props: {
           />
         </group>
         <group
-          position={[1.664, -1.069, 10.976]}
+          position={[1.664, -1.069 + wheelZ, 10.976]}
           rotation={[Math.PI / 2, 0, 0]}
           scale={wheelScales}
         >

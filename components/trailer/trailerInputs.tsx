@@ -45,18 +45,15 @@ export default function TrailerInputs() {
       boxFloorsCount: getInput(1, 1, 20, "Lits"),
       hasBox: { value: false, label: "Afficher" },
     }),
-    "Espace disponible": folder({
-      wallLength: getInput(1000, 3000, 20000, "L (mm)"),
-      wallHeight: getInput(4000, 3000, 8000, "h (mm)"),
-      hasWall: { value: false, label: "Afficher" },
-    }),
+    // "Espace disponible": folder({
+    //   wallLength: getInput(1000, 3000, 20000, "L (mm)"),
+    //   wallHeight: getInput(4000, 3000, 8000, "h (mm)"),
+    //   hasWall: { value: false, label: "Afficher" },
+    // }),
 
     // Palettier: folder({
-    Lisses: folder({
-      palletRackBeamLength: getInput(1, 1000, 4000, "L (mm)"),
-      palletRackBeamHeight: getInput(1, 100, 500, "h (mm)"), // plus petit
-      palletRackBeamWidth: getInput(1, 50, 500, "Ép (mm)"),
-      palletRackByCell: getInput(1, 1, 4, "Palettes/alvéole"),
+    Chargement: folder({
+      // palletRackByCell: getInput(1, 1, 4, "Palettes/alvéole"),
       [PALLET_STORAGE_DIRECTION]: {
         options: ["longitudinale", "transversale"] as (
           | "longitudinale"
@@ -64,23 +61,11 @@ export default function TrailerInputs() {
         )[],
         type: LevaInputs.SELECT,
       },
+      palletRackWidthCount: getInput(1, 1, 4, "Nbre L"),
+      palletRackLenghtCount: getInput(1, 1, 14, "Nbre l"),
+      palletRackHeightCount: getInput(1, 1, 5, "Nbre h"),
     }),
 
-    Niveaux: folder({
-      groundCellHeight: getInput(1, 1000, 3000, "h du RdC"),
-      floorCellHeight: getInput(1, 1000, 3000, "h étage"),
-      floorCount: getInput(0, 0, 20, "Nbre"),
-      hasPalletRack: { value: false, label: "Afficher" },
-    }),
-    "Échelles intermédiaires": folder({
-      palletRackLadderLength: getInput(1, 3000, 15000, "h (mm)"),
-      palletRackLadderHeight: getInput(1, 50, 300, "l (mm)"),
-      palletRackLadderWidth: getInput(1, 500, 5000, "Prof (mm)"),
-      palletRackLadderCount: getInput(0, 0, 20, "Nbre"),
-    }),
-    "Échelles extrémités": folder({
-      palletRackLadderExtLength: getInput(1, 3500, 20000, "h (mm)"),
-    }),
     // }),
 
     hq: { value: true, label: "hq" },

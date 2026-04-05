@@ -20,15 +20,12 @@ import { OrbitControls, Environment, BakeShadows } from "@react-three/drei";
 import { BlendFunction } from "postprocessing";
 import getPath from "@/helpers/path";
 import PalletRack from "./palletRack";
-import Wall from "./wall";
 import TruckModel from "./truck";
 
 export type Options = {
   trailerLength: number;
   trailerWidth: number;
   trailerHeight: number;
-  wallLength: number;
-  wallHeight: number;
   palletLength: number;
   palletWidth: number;
   palletHeight: number;
@@ -38,21 +35,10 @@ export type Options = {
   boxWidthSize: number;
   boxHeight: number;
   boxFloorsCount: number;
-  palletRackBeamLength: number;
-  palletRackBeamHeight: number;
-  palletRackBeamWidth: number;
-  palletRackByCell: number;
+  palletRackWidthCount: number;
+  palletRackLenghtCount: number;
+  palletRackHeightCount: number;
   [PALLET_STORAGE_DIRECTION]: "longitudinale" | "transversale";
-  groundCellHeight: number;
-  floorCellHeight: number;
-  floorCount: number;
-  palletRackLadderLength: number;
-  palletRackLadderHeight: number;
-  palletRackLadderWidth: number;
-  palletRackLadderCount: number;
-  palletRackLadderExtLength: number;
-  hasPalletRack: boolean;
-  hasWall: boolean;
   hasBox: boolean;
   hq: boolean;
 };
@@ -217,19 +203,20 @@ export default function Scene3D({ options }: { options: Options }) {
 
       
 
-        <TruckModel
-          transparent={true}
-          position={TRUCk_POSITION}
-          scale={[
-            options.trailerWidth,
-            options.trailerHeight,
-            options.trailerLength,
-          ]}
-        />
-        <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE} position={TRUCk_POSITION}>
-          <PalletRack options={options} />
-          {options.hasWall ? <Wall options={options} /> : null}
-          {/* <Cell options={options} position={[0, 0, 0]} /> */}
+        <group scale={0.3} position={[0, 0.27, 0]}>
+          <TruckModel
+            transparent={true}
+            position={TRUCk_POSITION}
+            scale={[
+              options.trailerWidth,
+              options.trailerHeight,
+              options.trailerLength,
+            ]}
+          />
+          <group rotation={new Euler(-Math.PI / 2, 0, 0)} scale={1 / SCALE} position={TRUCk_POSITION}>
+            <PalletRack options={options} />
+            {/* <Cell options={options} position={[0, 0, 0]} /> */}
+          </group>
         </group>
 
         <OrbitControls
